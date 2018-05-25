@@ -12,7 +12,7 @@ import { Global } from '../shared/Global';
 @Component({
   selector: 'app-contactlist',
   templateUrl: './contactlist.component.html',
-  styleUrls: ['./contactlist.component.css']
+  styleUrls: ['./contactlist.component.scss']
 })
 export class ContactlistComponent implements OnInit {
   contacts: IContact[];
