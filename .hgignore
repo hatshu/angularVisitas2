@@ -4,3 +4,4 @@ obj/*
 Migrations/*
 node_modules/*
 wwwroot/*
+src/app/app.component.html.orig
