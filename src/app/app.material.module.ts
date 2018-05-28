@@ -1,10 +1,20 @@
 import { NgModule } from '@angular/core';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule } from '@angular/material';
 import { MatPaginatorModule, MatFormFieldModule, MatRadioModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { MatDatepickerModule, MatNativeDateModule, MatOptionModule, MatDialogModule } from '@angular/material';
 import {  MatProgressSpinnerModule, MatSnackBarModule, MatCardModule } from '@angular/material';
-
-
+import { MatGridListModule,
+  MatSortModule,
+  MatSliderModule,
+  MatChipsModule,
+  MatTooltipModule,
+  MatExpansionModule,
+  MatAutocompleteModule,
+  MatTabsModule,
+  MatSlideToggleModule,
+  MatButtonModule
+} from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
     imports: [
         MatToolbarModule,
@@ -24,7 +34,30 @@ import {  MatProgressSpinnerModule, MatSnackBarModule, MatCardModule } from '@an
         MatDialogModule,
         MatProgressSpinnerModule,
         MatSnackBarModule,
-        MatCardModule
+        MatCardModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatCardModule,
+        MatGridListModule,
+        MatSidenavModule,
+        MatSortModule,
+        MatTableModule,
+        MatInputModule,
+        MatSelectModule,
+        MatSliderModule,
+        MatRadioModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatChipsModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        MatTabsModule,
+        MatSlideToggleModule,
+        MatPaginatorModule,
+        MatMenuModule
     ],
     exports: [
         MatToolbarModule,
@@ -44,7 +77,8 @@ import {  MatProgressSpinnerModule, MatSnackBarModule, MatCardModule } from '@an
         MatDialogModule,
         MatProgressSpinnerModule,
         MatSnackBarModule,
-        MatCardModule
+        MatCardModule,
+        MatMenuModule
     ],
 })
 export class AppMaterialModule { }
