@@ -4,7 +4,7 @@
     <mat-toolbar-row>
       &nbsp;
       <mat-icon class="example-icon">home</mat-icon> &nbsp; &nbsp;
-      <span>Aplicacion Contactos CATEC</span>&nbsp;&nbsp;
+      <span><a routerLink="home"  href="home">Aplicacion Contactos CATEC</a></span>&nbsp;&nbsp;
       <!-- <button mat-raised-button>Action</button> -->
       <!-- <mat-icon class="example-icon">favorites</mat-icon> -->
 
@@ -14,11 +14,9 @@
         <button mat-menu-item>Item 1</button>
         <button mat-menu-item>Item 2</button>
       </mat-menu> -->
-       <button mat-raised-button color="primary">Item 2</button>
-
-
-
-       <button mat-button [matMenuTriggerFor]="animals"><mat-icon class="example-icon">visibility </mat-icon> &nbsp; Animal index</button>
+       <!-- <button mat-raised-button color="primary">Item 2</button> -->
+      <button title="Create" mat-raised-button color="accent"><a routerLink="contaclist"  href="contaclist">Contact List</a></button>
+      <button mat-button [matMenuTriggerFor]="animals"><mat-icon class="example-icon">visibility </mat-icon> &nbsp; Animal index</button>
 
 <mat-menu #animals="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>

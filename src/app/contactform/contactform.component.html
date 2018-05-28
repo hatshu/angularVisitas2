@@ -25,7 +25,7 @@
   <p>
       <mat-radio-group class="contact-radio-group" formControlName="gender" >
         <mat-radio-button class="contact-radio-button" *ngFor="let gndr of genders" [value]="gndr.id">
-          {{ gndr.name }}
+          {{ gndr.name }}&nbsp;&nbsp;
         </mat-radio-button>
       </mat-radio-group>
       <mat-error *ngIf="formErrors.gender">

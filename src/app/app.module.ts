@@ -10,12 +10,14 @@ import { AppMaterialModule } from './app.material.module';
 import { ContactformComponent } from './contactform/contactform.component';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactformComponent,
-    ContactlistComponent
+    ContactlistComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
