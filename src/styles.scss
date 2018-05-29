@@ -14,16 +14,16 @@ body {
   font-size: 8pt;
   float: right;
 }
-a {
-  text-decoration: none;
-}
-a:hover{
-  color: white;
-}
+// a {
+//   text-decoration: none;
+// }
+// // a:hover{
+// //   color: white;
+// // }
 
-a:visited { 
-  color: white;
-}
+// a:visited { 
+//   color: white;
+// }
 
 body {
 //   background-image: url(/shared/bg.jpg);
@@ -36,7 +36,7 @@ height: 100%;
 z-index: 1;
 opacity: 0.8;
 // background-image: url('http://placekitten.com/1500/1000');
-background-image: url('app/shared/bg5.jpg');
+background-image: url('app/shared/bg6.jpg');
 background-repeat: repeat;
 // background-position: 90% 0;
 -ms-background-size: cover;
@@ -44,4 +44,27 @@ background-repeat: repeat;
 -moz-background-size: cover;
 -webkit-background-size: cover;
 background-size: cover;
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: #039be5;
+}
+
+.a2 {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+}
+a:hover {
+  color: #039be5;
+}
+a.active , a.visited{
+  color: whyte;
+}
+
+h2, h3 {
+  color: #444;
+  font-weight: lighter;
+  align: center;
 }

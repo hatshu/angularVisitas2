@@ -15,6 +15,7 @@ import { MatGridListModule,
   MatButtonModule
 } from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
+
 @NgModule({
     imports: [
         MatToolbarModule,
@@ -57,7 +58,7 @@ import {MatMenuModule} from '@angular/material/menu';
         MatTabsModule,
         MatSlideToggleModule,
         MatPaginatorModule,
-        MatMenuModule
+        MatMenuModule,
     ],
     exports: [
         MatToolbarModule,
