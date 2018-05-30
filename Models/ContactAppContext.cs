@@ -8,8 +8,7 @@ namespace contact_app.Models
             : base(options)
         {
         }
-
         public DbSet<Contact> Contact { get; set; }
-
-    }
+        public DbSet<Visit> Visit { get; set; }
+  }
 }

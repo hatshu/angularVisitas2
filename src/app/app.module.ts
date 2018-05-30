@@ -11,13 +11,17 @@ import { ContactformComponent } from './contactform/contactform.component';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
 import { HomeComponent } from './home/home.component';
+import { VisitlistComponent } from './visitlist/visitlist.component';
+import { VisitformComponent } from './visitform/visitform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactformComponent,
     ContactlistComponent,
-    HomeComponent
+    HomeComponent,
+    VisitlistComponent,
+    VisitformComponent
   ],
   imports: [
     BrowserModule,
