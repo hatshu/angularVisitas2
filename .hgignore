@@ -5,3 +5,6 @@ Migrations/*
 node_modules/*
 wwwroot/*
 src/app/app.component.html.orig
+dist/*
+.vs/contact-app/v15/.suo
+contact-app.csproj.user
