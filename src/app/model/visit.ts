@@ -1,5 +1,5 @@
 export interface IVisit {
-    id: number;
+    Id: number;
     Motivo: string;
     Duracion: string;
     ResponsableCatec: string;

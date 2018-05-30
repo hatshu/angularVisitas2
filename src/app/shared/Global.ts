@@ -1,5 +1,7 @@
 export class Global {
     public static BASE_USER_ENDPOINT = 'api/contact/';
+    public static BASE_USER_ENDPOINTVisit = 'api/visit/';
+
     public static genders = [{
         name: 'Male',
         id: 0,

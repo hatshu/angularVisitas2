@@ -19,13 +19,13 @@ addVisit(url: string, visit: IVisit): Observable < any > {
     return this.http.post(url, JSON.stringify(visit), httpOptions).pipe(catchError(this.handleError));
 }
 // update visit details
-updateVisit(url: string, id: number, visit: IVisit): Observable < any > {
-    const newurl = `${url}?id=${id}`;
+updateVisit(url: string, Id: number, visit: IVisit): Observable < any > {
+    const newurl = `${url}?id=${Id}`;
     return this.http.put(newurl, visit, httpOptions).pipe(catchError(this.handleError));
 }
 // delete visit information
-deleteVisit(url: string, id: number): Observable < any > {
-    const newurl = `${url}?id=${id}`; // DELETE api/visit?id=42
+deleteVisit(url: string, Id: number): Observable < any > {
+    const newurl = `${url}?id=${Id}`; // DELETE api/visit?id=42
     return this.http.delete(newurl, httpOptions).pipe(catchError(this.handleError));
 }
 // custom handler
