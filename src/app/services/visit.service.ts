@@ -15,17 +15,17 @@ export class VisitService {
     return this.http.get <IVisit[]> (url).pipe(catchError(this.handleError));
 }
 // insert new visit details
-addVisit(url: string, visit: IVisit): Observable < any > {
+    addVisit(url: string, visit: IVisit): Observable < any > {
     return this.http.post(url, JSON.stringify(visit), httpOptions).pipe(catchError(this.handleError));
 }
 // update visit details
-updateVisit(url: string, Id: number, visit: IVisit): Observable < any > {
-    const newurl = `${url}?id=${Id}`;
+    updateVisit(url: string, Id: number, visit: IVisit): Observable < any > {
+    const newurl = `${url}?Id=${Id}`;
     return this.http.put(newurl, visit, httpOptions).pipe(catchError(this.handleError));
 }
 // delete visit information
-deleteVisit(url: string, Id: number): Observable < any > {
-    const newurl = `${url}?id=${Id}`; // DELETE api/visit?id=42
+    deleteVisit(url: string, Id: number): Observable < any > {
+    const newurl = `${url}?Id=${Id}`; // DELETE api/visit?Id=42
     return this.http.delete(newurl, httpOptions).pipe(catchError(this.handleError));
 }
 // custom handler

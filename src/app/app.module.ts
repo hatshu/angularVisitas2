@@ -10,6 +10,7 @@ import { AppMaterialModule } from './app.material.module';
 import { ContactformComponent } from './contactform/contactform.component';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
+import { VisitService } from './services/visit.service';
 import { HomeComponent } from './home/home.component';
 import { VisitlistComponent } from './visitlist/visitlist.component';
 import { VisitformComponent } from './visitform/visitform.component';
@@ -33,7 +34,10 @@ import { VisitformComponent } from './visitform/visitform.component';
     LayoutModule,
     Routing
   ],
-  providers: [ContactService],
+  providers: [
+    ContactService,
+    VisitService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
