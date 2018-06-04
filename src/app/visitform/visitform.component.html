@@ -1,5 +1,5 @@
 <p>VISIT FORM WORKS</p>
-<!-- <form  (ngSubmit)="onSubmit(visitFrm)" [formGroup]="visitFrm">
+<form  (ngSubmit)="onSubmit(visitFrm)" [formGroup]="visitFrm">
   <h3>{{data.modalTitle}}</h3>
   <div>
       <mat-form-field appearance="outline">
@@ -48,7 +48,8 @@
     </mat-error>
     </mat-form-field>
   </div>
+  <div>
     <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
     <button type="submit" mat-raised-button color="primary" [disabled]="visitFrm.invalid">{{data.modalBtnTitle}}</button>
   </div>
-  </form> -->
+  </form>
