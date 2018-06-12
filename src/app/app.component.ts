@@ -3,9 +3,15 @@ import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ContactformComponent } from './contactform/contactform.component';
+import { VisitformComponent } from './visitform/visitform.component';
+
 
 import { ContactService } from './services/contact.service';
+import { VisitService } from './services/visit.service';
+
 import { IContact } from './model/contact';
+import { IVisit } from './model/visit';
+
 import { DBOperation } from './shared/DBOperations';
 import { Global } from './shared/Global';
 

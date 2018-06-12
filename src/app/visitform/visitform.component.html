@@ -1,4 +1,3 @@
-<p>VISIT FORM WORKS</p>
 <form  (ngSubmit)="onSubmit(visitFrm)" [formGroup]="visitFrm">
   <h3>{{data.modalTitle}}</h3>
   <div>
@@ -13,7 +12,7 @@
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Duracion</mat-label>
-      <input type="Duracion" matInput placeholder="Duracion" formControlName="Duracion">
+      <input matInput placeholder="Duracion" formControlName="Duracion">
       <mat-error *ngIf="formErrors.Duracion">
         {{ formErrors.Duracion }}
       </mat-error>
@@ -22,7 +21,7 @@
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Responsable</mat-label>
-      <input type="ResponsableCatec" matInput placeholder="ResponsableCatec" formControlName="ResponsableCatec">
+      <input matInput placeholder="ResponsableCatec" formControlName="ResponsableCatec">
       <mat-error *ngIf="formErrors.ResponsableCatec">
         {{ formErrors.ResponsableCatec }}
       </mat-error>

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace contact_app.Controllers
 {
     // set route attribute to make request as 'api/visit'
-    [Route("api/visit")]
+    [Route("api/[controller]")]
     public class VisitController : Controller
     {
         private readonly ContactAppContext _context;
@@ -24,7 +24,9 @@ namespace contact_app.Controllers
         public IEnumerable<Visit> GetAll()
         {
             // fetch all Visit records
-            return _context.Visit.ToList();
+            IEnumerable<Visit> listilla;
+            listilla = _context.Visit.ToList();
+            return listilla;
         }
 
         [HttpGet("{Id}")]

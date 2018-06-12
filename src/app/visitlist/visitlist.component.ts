@@ -25,7 +25,7 @@ export class VisitlistComponent implements OnInit {
   modalBtnTitle: string;
 
   // set columns that will need to show in listing table
-  displayedColumns = ['Motivo', 'Duracion', 'ResponsableCatec', 'Fecha', 'Hora', 'action'];
+  displayedColumns = ['Motivo', 'Duracion', 'ResponsableCatec', 'Fecha', 'Hora', 'Action'];
   // setting up datasource for material table
   dataSource = new MatTableDataSource<IVisit>();
 
@@ -37,7 +37,7 @@ export class VisitlistComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(VisitformComponent, {
-      width: '500px',
+      width: '600px',
       data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, visit: this.visit }
     });
 

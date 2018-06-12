@@ -39,7 +39,7 @@ export class VisitformComponent implements OnInit {
   this.visitFrm = this.fb.group({
     Id: [''],
     Motivo: ['', [Validators.required, Validators.maxLength(50)]],
-    Duracion: ['', [Validators.required, Validators.email]],
+    Duracion: ['', [Validators.required]],
     ResponsableCatec: ['', [Validators.required]],
     Fecha: ['', [Validators.required]],
     Hora: ['', [Validators.required]]
@@ -92,11 +92,9 @@ validationMessages = {
     'required': 'Motivo is required.'
   },
   'Duracion': {
-    'maxlength': 'Motivo cannot be more than 50 characters long.',
     'required': 'Duracion is required.'
   },
   'ResponsableCatec': {
-    'maxlength': 'Responsable cannot be more than 50 characters long.',
     'required': 'Responsable is required.'
   },
   'Fecha': {
