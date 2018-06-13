@@ -10,7 +10,7 @@ import { Global } from '../shared/Global';
 @Component({
   selector: 'app-visitlist',
   templateUrl: './visitlist.component.html',
-  styleUrls: ['./visitlist.component.css']
+  styleUrls: ['./visitlist.component.scss']
 })
 export class VisitlistComponent implements OnInit {
 // constructor() { }
@@ -37,7 +37,7 @@ export class VisitlistComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(VisitformComponent, {
-      width: '600px',
+      width: '500px',
       data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, visit: this.visit }
     });
 
