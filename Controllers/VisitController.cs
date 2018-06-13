@@ -29,12 +29,12 @@ namespace contact_app.Controllers
             return listilla;
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         [Route("getVisit")]
-        public IActionResult GetById(long Id)
+        public IActionResult GetById(long id)
         {
             // filter Visit records by Visit id
-            var item = _context.Visit.FirstOrDefault(t => t.Id == Id);
+            var item = _context.Visit.FirstOrDefault(t => t.id == id);
             if (item == null)
             {
                 return NotFound();
@@ -52,11 +52,11 @@ namespace contact_app.Controllers
             }
             _context.Visit.Add(new Visit
             {
-                Motivo = item.Motivo,
-                Duracion = item.Duracion,
-                ResponsableCatec = item.ResponsableCatec,
-                Fecha = item.Fecha,
-                Hora = item.Hora
+                motivo = item.motivo,
+                duracion = item.duracion,
+                responsableCatec = item.responsableCatec,
+                fecha = item.fecha,
+                hora = item.hora
 
             });
             _context.SaveChanges();
@@ -64,27 +64,27 @@ namespace contact_app.Controllers
             return Ok( new { message= "Visit is added successfully."});
         }
 
-        [HttpPut("{Id}")]
+        [HttpPut("{id}")]
         [Route("updateVisit")]
-        public IActionResult Update(long Id, [FromBody] Visit item)
+        public IActionResult Update(long id, [FromBody] Visit item)
         {
             // set bad request if visit data is not provided in body
-            if (item == null || Id == 0)
+            if (item == null || id == 0)
             {
                 return BadRequest();
             }
 
-            var visit = _context.Visit.FirstOrDefault(t => t.Id == Id);
+            var visit = _context.Visit.FirstOrDefault(t => t.id == id);
             if (visit == null)
             {
                 return NotFound();
             }
 
-            visit.Motivo = item.Motivo;
-            visit.Duracion = item.Duracion;
-            visit.ResponsableCatec = item.ResponsableCatec;
-            visit.Fecha = item.Fecha;
-            visit.Hora = item.Hora;
+            visit.motivo = item.motivo;
+            visit.duracion = item.duracion;
+            visit.responsableCatec = item.responsableCatec;
+            visit.fecha = item.fecha;
+            visit.hora = item.hora;
 
             _context.Visit.Update(visit);
             _context.SaveChanges();
@@ -92,11 +92,11 @@ namespace contact_app.Controllers
         }
 
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("{id}")]
         [Route("deleteVisit")]
-        public IActionResult Delete(long Id)
+        public IActionResult Delete(long id)
         {
-            var visit = _context.Visit.FirstOrDefault(t => t.Id == Id);
+            var visit = _context.Visit.FirstOrDefault(t => t.id == id);
             if (visit == null)
             {
                 return NotFound();

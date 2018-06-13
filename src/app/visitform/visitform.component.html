@@ -3,52 +3,54 @@
   <div>
       <mat-form-field appearance="outline">
       <mat-label>Motivo</mat-label>
-      <input matInput placeholder="Motivo" formControlName="Motivo">
-      <mat-error *ngIf="formErrors.Motivo">
-        {{ formErrors.Motivo }}
+      <input matInput placeholder="motivo" formControlName="motivo">
+      <mat-error *ngIf="formErrors.motivo">
+        {{ formErrors.motivo }}
       </mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Duracion</mat-label>
-      <input matInput placeholder="Duracion" formControlName="Duracion">
-      <mat-error *ngIf="formErrors.Duracion">
-        {{ formErrors.Duracion }}
+      <input matInput placeholder="duracion" formControlName="duracion">
+      <mat-error *ngIf="formErrors.duracion">
+        {{ formErrors.duracion }}
       </mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Responsable</mat-label>
-      <input matInput placeholder="ResponsableCatec" formControlName="ResponsableCatec">
-      <mat-error *ngIf="formErrors.ResponsableCatec">
-        {{ formErrors.ResponsableCatec }}
+      <input matInput placeholder="responsableCatec" formControlName="responsableCatec">
+      <mat-error *ngIf="formErrors.responsableCatec">
+        {{ formErrors.responsableCatec }}
       </mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <input matInput [matDatepicker]="picker" placeholder="Elige una Fecha" formControlName="Fecha">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="formErrors.Fecha ">
-      {{ formErrors.Fecha }}
+      <input matInput [matDatepicker]="picker1" placeholder="Elige una Fecha" formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="formErrors.fecha ">
+      {{ formErrors.fecha }}
     </mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <input matInput [matDatepicker]="picker" placeholder="Elige una Hora" formControlName="Hora">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="formErrors.Hora ">
-      {{ formErrors.Hora }}
+      <input matInput [matDatepicker]="picker2" placeholder="Elige una Hora" formControlName="hora">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="formErrors.hora ">
+      {{ formErrors.hora }}
     </mat-error>
     </mat-form-field>
   </div>
   <div>
+    <!-- <mat-dialog-actions> -->
     <button type="button" mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
     <button type="submit" mat-raised-button color="primary" [disabled]="visitFrm.invalid">{{data.modalBtnTitle}}</button>
+    <!-- </mat-dialog-actions> -->
   </div>
   </form>

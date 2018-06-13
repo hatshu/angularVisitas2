@@ -32,7 +32,7 @@ import { VisitformComponent } from './visitform/visitform.component';
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
-    Routing
+    Routing,
   ],
   providers: [
     ContactService,

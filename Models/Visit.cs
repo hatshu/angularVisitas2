@@ -4,11 +4,11 @@ namespace contact_app.Models
 {
     public class Visit
     {
-    public long? Id { get; set; }
-    public string Motivo { get; set; }
-    public string Duracion { get; set; }
-    public string ResponsableCatec { get; set; }
-    public DateTime? Fecha { get; set; }
-    public DateTime? Hora { get; set; }
+    public long? id { get; set; }
+    public string motivo { get; set; }
+    public string duracion { get; set; }
+    public string responsableCatec { get; set; }
+    public DateTime? fecha { get; set; }
+    public DateTime? hora { get; set; }
   }
 }

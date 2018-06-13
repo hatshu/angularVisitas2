@@ -10,7 +10,6 @@ import {
 } from '@angular/material';
 
 import { VisitlistComponent } from '../visitlist/visitlist.component';
-
 import { IVisit } from '../model/visit';
 import { VisitService } from '../services/visit.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -37,12 +36,12 @@ export class VisitformComponent implements OnInit {
 
   ngOnInit() {
     this.visitFrm = this.fb.group({
-      Id: [''],
-      Motivo: ['', [Validators.required, Validators.maxLength(50)]],
-      Duracion: ['', [Validators.required]],
-      ResponsableCatec: ['', [Validators.required]],
-      Fecha: ['', [Validators.required]],
-      Hora: ['', [Validators.required]]
+      id: [''],
+      motivo: ['', [Validators.required, Validators.maxLength(50)]],
+      duracion: ['', [Validators.required]],
+      responsableCatec: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
+      hora: ['', [Validators.required]]
     });
 
     // subscribe on value changed event of form to show validation message
@@ -132,7 +131,7 @@ export class VisitformComponent implements OnInit {
         this._visitService
           .updateVisit(
             Global.BASE_USER_ENDPOINTVisit + 'updateVisit',
-            visitData.Id,
+            visitData.id,
             visitData
           )
           .subscribe(
@@ -153,7 +152,7 @@ export class VisitformComponent implements OnInit {
         this._visitService
           .deleteVisit(
             Global.BASE_USER_ENDPOINTVisit + 'deleteVisit',
-            visitData.Id
+            visitData.id,
           )
           .subscribe(
             data => {
@@ -176,7 +175,7 @@ export class VisitformComponent implements OnInit {
   }
 
   mapDateData(visit: IVisit): IVisit {
-    visit.Fecha = new Date(visit.Fecha).toISOString();
+    visit.fecha = new Date(visit.fecha).toISOString();
     return visit;
   }
 }
