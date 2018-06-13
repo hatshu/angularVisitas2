@@ -1,25 +1,25 @@
 <div class="spinner" *ngIf="loadingState; else visilist">
   <mat-spinner></mat-spinner>
   </div>
-  <ng-template class="visilist" #visilist>
+  <ng-template class="visitlist" #visilist>
       <h2 align="center"> <mat-icon class="example-icon">people</mat-icon>Lista de Visitas</h2>
-    <div class="visilist-container mat-elevation-z8">
+    <div class="visitlist-container mat-elevation-z8">
       <div><button title="Create" mat-raised-button color="accent" (click)="addVisit()">Create</button></div>
       <table mat-table #table [dataSource]="dataSource">
         <ng-container matColumnDef="motivo">
-          <th mat-header-cell *matHeaderCellDef> motivo </th>
+          <th mat-header-cell *matHeaderCellDef> Motivo </th>
           <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
         </ng-container>
         <ng-container matColumnDef="duracion">
-          <th mat-header-cell *matHeaderCellDef> duracion </th>
+          <th mat-header-cell *matHeaderCellDef> Duracion </th>
           <td mat-cell *matCellDef="let element"> {{element.duracion}} </td>
         </ng-container>
         <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef> fecha </th>
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
           <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'MM-dd-yyyy' }} </td>
         </ng-container>
         <ng-container matColumnDef="hora">
-          <th mat-header-cell *matHeaderCellDef> hora </th>
+          <th mat-header-cell *matHeaderCellDef> Hora </th>
           <td mat-cell *matCellDef="let element"> {{element.hora | date: 'MM-dd-yyyy' }} </td>
         </ng-container>
         <ng-container matColumnDef="responsableCatec">
