@@ -41,7 +41,6 @@ export class VisitformComponent implements OnInit {
       duracion: ['', [Validators.required]],
       responsableCatec: ['', [Validators.required]],
       fecha: ['', [Validators.required]],
-      hora: ['', [Validators.required]]
     });
 
     // subscribe on value changed event of form to show validation message
@@ -85,7 +84,6 @@ export class VisitformComponent implements OnInit {
     duracion: '',
     responsableCatec: '',
     fecha: '',
-    hora: ''
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
@@ -102,9 +100,6 @@ export class VisitformComponent implements OnInit {
     },
     fecha: {
       required: 'Fecha is required.'
-    },
-    hora: {
-      required: 'Hora is required.'
     }
   };
   onSubmit(formData: any) {

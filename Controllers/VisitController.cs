@@ -50,6 +50,7 @@ namespace contact_app.Controllers
             {
                 return BadRequest();
             }
+
             _context.Visit.Add(new Visit
             {
                 motivo = item.motivo,
@@ -83,9 +84,9 @@ namespace contact_app.Controllers
             visit.motivo = item.motivo;
             visit.duracion = item.duracion;
             visit.responsableCatec = item.responsableCatec;
+            //TODO:sacar fecha de hoy y guardarla en fecha y hora.
             visit.fecha = item.fecha;
             visit.hora = item.hora;
-
             _context.Visit.Update(visit);
             _context.SaveChanges();
             return Ok( new { message= "Visit is updated successfully."});
