@@ -9,6 +9,5 @@ namespace contact_app.Models
     public string duracion { get; set; }
     public string responsableCatec { get; set; }
     public DateTime? fecha { get; set; }
-    public DateTime? hora { get; set; }
   }
 }

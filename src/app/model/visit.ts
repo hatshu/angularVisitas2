@@ -4,5 +4,4 @@ export interface IVisit {
     duracion: string;
     responsableCatec: string;
     fecha: string;
-    hora: string;
 }

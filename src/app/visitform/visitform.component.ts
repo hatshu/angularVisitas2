@@ -40,7 +40,7 @@ export class VisitformComponent implements OnInit {
       motivo: ['', [Validators.required, Validators.maxLength(50)]],
       duracion: ['', [Validators.required]],
       responsableCatec: ['', [Validators.required]],
-      fecha: ['', [Validators.required]],
+      // fecha: ['', [Validators.required]],
     });
 
     // subscribe on value changed event of form to show validation message
@@ -83,7 +83,7 @@ export class VisitformComponent implements OnInit {
     motivo: '',
     duracion: '',
     responsableCatec: '',
-    fecha: '',
+    // fecha: '',
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
@@ -98,15 +98,16 @@ export class VisitformComponent implements OnInit {
     responsableCatec: {
       required: 'Responsable is required.'
     },
-    fecha: {
-      required: 'Fecha is required.'
-    }
+    // fecha: {
+    //   required: 'Fecha is required.'
+    // }
   };
   onSubmit(formData: any) {
-    const visitData = this.mapDateData(formData.value);
+     const visitData = this.mapDateData(formData.value);
     switch (this.data.dbops) {
       case DBOperation.create:
         this._visitService
+          // .addVisit(Global.BASE_USER_ENDPOINTVisit + 'addVisit', visitData)
           .addVisit(Global.BASE_USER_ENDPOINTVisit + 'addVisit', visitData)
           .subscribe(
             data => {
@@ -126,8 +127,8 @@ export class VisitformComponent implements OnInit {
         this._visitService
           .updateVisit(
             Global.BASE_USER_ENDPOINTVisit + 'updateVisit',
-            visitData.id,
-            visitData
+             visitData.id,
+             visitData
           )
           .subscribe(
             data => {
@@ -168,9 +169,9 @@ export class VisitformComponent implements OnInit {
   SetControlsState(isEnable: boolean) {
     isEnable ? this.visitFrm.enable() : this.visitFrm.disable();
   }
-
+// TODO: revisar si esto se puede quitar
   mapDateData(visit: IVisit): IVisit {
-    visit.fecha = new Date(visit.fecha).toISOString();
+    // visit.fecha = new Date(visit.fecha).toISOString();
     return visit;
   }
 }

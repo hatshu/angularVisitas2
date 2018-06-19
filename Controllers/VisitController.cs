@@ -56,8 +56,8 @@ namespace contact_app.Controllers
                 motivo = item.motivo,
                 duracion = item.duracion,
                 responsableCatec = item.responsableCatec,
-                fecha = item.fecha,
-                hora = item.hora
+                //TODO: sacar la fecha y hora de ese momento
+                fecha = DateTime.Now,
 
             });
             _context.SaveChanges();
@@ -84,9 +84,7 @@ namespace contact_app.Controllers
             visit.motivo = item.motivo;
             visit.duracion = item.duracion;
             visit.responsableCatec = item.responsableCatec;
-            //TODO:sacar fecha de hoy y guardarla en fecha y hora.
-            visit.fecha = item.fecha;
-            visit.hora = item.hora;
+            // visit.fecha = item.fecha;
             _context.Visit.Update(visit);
             _context.SaveChanges();
             return Ok( new { message= "Visit is updated successfully."});
