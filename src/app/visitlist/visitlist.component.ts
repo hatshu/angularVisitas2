@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { VisitformComponent } from '../visitform/visitform.component';
 import { VisitService } from '../services/visit.service';
 import { IVisit } from '../model/visit';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
+
 
 @Component({
   selector: 'app-visitlist',
@@ -19,6 +20,7 @@ export class VisitlistComponent implements OnInit {
   dbops: DBOperation;
   modalTitle: string;
   modalBtnTitle: string;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // set columns that will need to show in listing table
   displayedColumns = ['motivo', 'duracion', 'responsableCatec', 'fecha', 'hora', 'action'];
@@ -28,6 +30,7 @@ export class VisitlistComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private _visitService: VisitService, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
     this.loadingState = true;
     this.loadVisits();
   }

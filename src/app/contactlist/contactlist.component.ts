@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 
@@ -20,6 +20,8 @@ export class ContactlistComponent implements OnInit {
   dbops: DBOperation;
   modalTitle: string;
   modalBtnTitle: string;
+  listLength: number;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
@@ -31,7 +33,9 @@ export class ContactlistComponent implements OnInit {
   ngOnInit() {
     this.loadingState = true;
     this.loadContacts();
+    this.dataSource.paginator = this.paginator;
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(ContactformComponent, {
       width: '500px',
@@ -67,6 +71,7 @@ export class ContactlistComponent implements OnInit {
       .subscribe(contacts => {
         this.loadingState = false;
         this.dataSource.data = contacts;
+        this.listLength = contacts.length;
       });
   }
 

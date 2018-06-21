@@ -169,7 +169,7 @@ export class VisitformComponent implements OnInit {
   SetControlsState(isEnable: boolean) {
     isEnable ? this.visitFrm.enable() : this.visitFrm.disable();
   }
-// TODO: revisar si esto se puede quitar
+
   mapDateData(visit: IVisit): IVisit {
     // visit.fecha = new Date(visit.fecha).toISOString();
     return visit;
