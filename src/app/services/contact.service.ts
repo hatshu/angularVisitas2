@@ -11,9 +11,15 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
    // get all contact data
-   getAllContact(url: string): Observable <IContact[]> {
+
+getAllContact(url: string): Observable <IContact[]> {
     return this.http.get <IContact[]> (url).pipe(catchError(this.handleError));
 }
+
+getData(url, startIndex, pageSize): Observable<IContact[]> {
+  return this.http.get <IContact[]> (url + '?page=' + startIndex + '&limit=' + pageSize).pipe(catchError(this.handleError));
+}
+
 // insert new contact details
 addContact(url: string, contact: IContact): Observable < any > {
     return this.http.post(url, JSON.stringify(contact), httpOptions).pipe(catchError(this.handleError));

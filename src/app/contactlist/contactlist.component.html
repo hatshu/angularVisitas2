@@ -61,8 +61,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-      <mat-paginator #paginator [pageIndex]="0" [pageSize]="7" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="listLength">
-      </mat-paginator>
-      <p>&nbsp;</p>
+      <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[5,10,15,25]"
+      [showFirstLastButtons]="true">
+      (page)="pageEvent = loadContacts($event)"
+    </mat-paginator>
+      <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="7" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="listLength"> -->
     </div>
   </ng-template>
+  <p>&nbsp;</p>

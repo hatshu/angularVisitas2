@@ -10,13 +10,13 @@
 .contactlist-container, #paginator {
   display: flex;
   flex-direction: column;
-  // min-width: 300px;
-  // max-width: 1200px;
+  min-width: 300px;
+  max-width: 1200px;
   // max-height: 700px;
   overflow: auto;
   margin: 0 auto;
 }
 
-table {
-  width: 100%;
-}
+// table {
+//   width: 100%;
+// }

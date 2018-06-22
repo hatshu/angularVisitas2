@@ -1,10 +1,10 @@
+import { IContact } from './../model/contact';
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
-
 import { ContactService } from '../services/contact.service';
-import { IContact } from '../model/contact';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
 
@@ -20,25 +20,30 @@ export class ContactlistComponent implements OnInit {
   dbops: DBOperation;
   modalTitle: string;
   modalBtnTitle: string;
-  listLength: number;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  length: number;
+  pageIndex = 1;
+  pageSize = 5;
+  pageSizeOptions = [5, 10, 25];
+  pageEvent: PageEvent;
 
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
   // setting up datasource for material table
   dataSource = new MatTableDataSource<IContact>();
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(public snackBar: MatSnackBar, private _contactService: ContactService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadingState = true;
     this.loadContacts();
-    this.dataSource.paginator = this.paginator;
   }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ContactformComponent, {
-      width: '500px',
+      width: '600px',
       data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, contact: this.contact }
     });
 
@@ -66,15 +71,25 @@ export class ContactlistComponent implements OnInit {
     });
   }
 
-  loadContacts(): void {
-    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+  loadContacts() {
+    this._contactService.getData(Global.BASE_USER_ENDPOINT + 'getData', this.pageIndex, this.pageSize)
       .subscribe(contacts => {
+        this.setPagination(contacts.length, this.pageIndex, this.pageSize);
         this.loadingState = false;
         this.dataSource.data = contacts;
-        this.listLength = contacts.length;
-      });
+    });
   }
 
+  setPagination(length, startIndex, pageSize) {
+    this.length = length;
+    this.pageIndex = startIndex;
+    this.pageSize = pageSize;
+}
+  onPaginateChange(event) {
+    this.pageIndex = event.pageIndex;
+   this.pageSize = event.pageSize;
+   this.loadContacts();
+}
   getGender(gender: number): string {
     return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
   }

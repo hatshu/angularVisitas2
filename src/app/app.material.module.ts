@@ -57,7 +57,6 @@ import {MatMenuModule} from '@angular/material/menu';
         MatAutocompleteModule,
         MatTabsModule,
         MatSlideToggleModule,
-        MatPaginatorModule,
         MatMenuModule,
     ],
     exports: [
