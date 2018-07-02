@@ -21,16 +21,20 @@ export class VisitlistComponent implements OnInit {
   modalTitle: string;
   modalBtnTitle: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
+  public array: any;
+  public dataSource: any;
 
   // set columns that will need to show in listing table
   displayedColumns = ['motivo', 'duracion', 'responsableCatec', 'fecha', 'hora', 'action'];
   // setting up datasource for material table
-  dataSource = new MatTableDataSource<IVisit>();
+  // dataSource = new MatTableDataSource<IVisit>();
 
   constructor(public snackBar: MatSnackBar, private _visitService: VisitService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     this.loadingState = true;
     this.loadVisits();
   }
@@ -64,12 +68,37 @@ export class VisitlistComponent implements OnInit {
     });
   }
 
-  loadVisits(): void {
+  // loadVisits(): void {
+  //   this._visitService.getAllVisit(Global.BASE_USER_ENDPOINTVisit + 'getAllVisit')
+  //     .subscribe(visits => {
+  //       this.loadingState = false;
+  //       this.dataSource.data = visits;
+  //     });
+  // }
+
+  loadVisits() {
     this._visitService.getAllVisit(Global.BASE_USER_ENDPOINTVisit + 'getAllVisit')
       .subscribe(visits => {
+        this.dataSource = new MatTableDataSource<IVisit>(visits);
+        this.dataSource.paginator = this.paginator;
+        this.array = visits;
         this.loadingState = false;
-        this.dataSource.data = visits;
-      });
+        this.totalSize = this.array.length;
+        this.iterator();
+    });
+  }
+
+  private iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.array.slice(start, end);
+    this.dataSource = part;
+  }
+
+  public handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
   }
   addVisit() {
     this.dbops = DBOperation.create;

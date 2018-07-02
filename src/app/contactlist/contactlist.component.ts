@@ -25,11 +25,13 @@ export class ContactlistComponent implements OnInit {
   public currentPage = 0;
   public totalSize = 0;
   public array: any;
+  public dataSource: any;
+
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();
-  public dataSource: any;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -96,18 +98,6 @@ export class ContactlistComponent implements OnInit {
     this.iterator();
   }
 
-        // this.dataSource.data = contacts;
-
-//   setPagination(length, startIndex, pageSize) {
-//     this.length = length;
-//     this.pageIndex = startIndex;
-//     this.pageSize = pageSize;
-// }
-//   onPaginateChange(event) {
-//     this.pageIndex = event.pageIndex;
-//    this.pageSize = event.pageSize;
-//    this.loadContacts();
-// }
   getGender(gender: number): string {
     return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
   }
