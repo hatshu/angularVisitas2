@@ -2,7 +2,7 @@ import { IContact } from './../model/contact';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -21,15 +21,15 @@ export class ContactlistComponent implements OnInit {
   modalTitle: string;
   modalBtnTitle: string;
   length: number;
-  pageIndex = 1;
-  pageSize = 5;
-  pageSizeOptions = [5, 10, 25];
-  pageEvent: PageEvent;
-
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
+  public array: any;
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
   // setting up datasource for material table
-  dataSource = new MatTableDataSource<IContact>();
+  // dataSource = new MatTableDataSource<IContact>();
+  public dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -72,24 +72,42 @@ export class ContactlistComponent implements OnInit {
   }
 
   loadContacts() {
-    this._contactService.getData(Global.BASE_USER_ENDPOINT + 'getData', this.pageIndex, this.pageSize)
+    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
       .subscribe(contacts => {
-        this.setPagination(contacts.length, this.pageIndex, this.pageSize);
+        this.dataSource = new MatTableDataSource<IContact>(contacts);
+        this.dataSource.paginator = this.paginator;
+        this.array = contacts;
         this.loadingState = false;
-        this.dataSource.data = contacts;
+        this.totalSize = this.array.length;
+        this.iterator();
     });
   }
 
-  setPagination(length, startIndex, pageSize) {
-    this.length = length;
-    this.pageIndex = startIndex;
-    this.pageSize = pageSize;
-}
-  onPaginateChange(event) {
-    this.pageIndex = event.pageIndex;
-   this.pageSize = event.pageSize;
-   this.loadContacts();
-}
+  private iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.array.slice(start, end);
+    this.dataSource = part;
+  }
+
+  public handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
+  }
+
+        // this.dataSource.data = contacts;
+
+//   setPagination(length, startIndex, pageSize) {
+//     this.length = length;
+//     this.pageIndex = startIndex;
+//     this.pageSize = pageSize;
+// }
+//   onPaginateChange(event) {
+//     this.pageIndex = event.pageIndex;
+//    this.pageSize = event.pageSize;
+//    this.loadContacts();
+// }
   getGender(gender: number): string {
     return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
   }
