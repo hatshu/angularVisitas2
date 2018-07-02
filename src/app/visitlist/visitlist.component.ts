@@ -110,8 +110,10 @@ export class VisitlistComponent implements OnInit {
     this.dbops = DBOperation.update;
     this.modalTitle = 'Edit Visit';
     this.modalBtnTitle = 'Update';
-    this.visit = this.dataSource.data.filter(x => x.id === id)[0];
-    this.openDialog();
+    // this.visit = this.dataSource.data.filter(x => x.id === id)[0];
+    // todo: hacer un foreac que recorra el contenido de datasource.data y recuepere los datos del elemento seleccionado
+   this.dataSource.data.forEach();
+   this.openDialog();
   }
   deleteVisit(id: number) {
     this.dbops = DBOperation.delete;
