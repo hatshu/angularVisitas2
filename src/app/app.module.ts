@@ -10,10 +10,13 @@ import { AppMaterialModule } from './app.material.module';
 import { ContactformComponent } from './contactform/contactform.component';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
+import { EnlaceService } from './services/enlace.service';
 import { VisitService } from './services/visit.service';
+
 import { HomeComponent } from './home/home.component';
 import { VisitlistComponent } from './visitlist/visitlist.component';
 import { VisitformComponent } from './visitform/visitform.component';
+import { ContactBrowserComponent } from './contact-browser/contact-browser.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { VisitformComponent } from './visitform/visitform.component';
     ContactlistComponent,
     HomeComponent,
     VisitlistComponent,
-    VisitformComponent
+    VisitformComponent,
+    ContactBrowserComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import { VisitformComponent } from './visitform/visitform.component';
   ],
   providers: [
     ContactService,
-    VisitService
+    VisitService,
+    EnlaceService
   ],
   bootstrap: [AppComponent]
 })

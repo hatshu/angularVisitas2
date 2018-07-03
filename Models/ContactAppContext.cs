@@ -10,5 +10,6 @@ namespace contact_app.Models
         }
         public DbSet<Contact> Contact { get; set; }
         public DbSet<Visit> Visit { get; set; }
+        public DbSet<EnlaceVisitContact> EnlaceVisitContact { get; set; }
   }
 }
