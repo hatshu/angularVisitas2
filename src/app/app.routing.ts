@@ -6,6 +6,7 @@ import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactformComponent } from './contactform/contactform.component';
 import { VisitlistComponent } from './visitlist/visitlist.component';
 import { VisitformComponent } from './visitform/visitform.component';
+import { ContactBrowserComponent } from './contact-browser/contact-browser.component';
 import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
   { path: 'contactform', component: ContactformComponent },
   { path: 'visitlist' , component: VisitlistComponent },
   { path: 'visitform', component: VisitformComponent },
+  { path: 'contactbrowser', component: ContactBrowserComponent },
   { path: '', redirectTo: 'home' , pathMatch: 'full' },
   { path: '**', redirectTo: 'home'}
 ];
