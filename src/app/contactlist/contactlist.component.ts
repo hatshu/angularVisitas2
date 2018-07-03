@@ -76,7 +76,9 @@ export class ContactlistComponent implements OnInit {
   loadContacts() {
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
       .subscribe(contacts => {
-        this.dataSource = new MatTableDataSource<IContact>(contacts);
+        // this.dataSource = new MatTableDataSource<IContact>(contacts);
+        this.dataSource = new MatTableDataSource<IContact>();
+        this.dataSource = contacts;
         this.dataSource.paginator = this.paginator;
         this.array = contacts;
         this.loadingState = false;
@@ -112,14 +114,14 @@ export class ContactlistComponent implements OnInit {
     this.dbops = DBOperation.update;
     this.modalTitle = 'Edit Contact';
     this.modalBtnTitle = 'Update';
-    this.contact = this.dataSource.data.filter(x => x.id === id)[0];
+    this.contact = this.dataSource.filter(x => x.id === id)[0];
     this.openDialog();
   }
   deleteContact(id: number) {
     this.dbops = DBOperation.delete;
     this.modalTitle = 'Confirm to Delete ?';
     this.modalBtnTitle = 'Delete';
-    this.contact = this.dataSource.data.filter(x => x.id === id)[0];
+    this.contact = this.dataSource.filter(x => x.id === id)[0];
     this.openDialog();
   }
   showMessage(msg: string) {

@@ -16,6 +16,7 @@ import { Global } from '../shared/Global';
 export class VisitlistComponent implements OnInit {
   visits: IVisit[];
   visit: IVisit;
+  visit2: IVisit;
   loadingState: boolean;
   dbops: DBOperation;
   modalTitle: string;
@@ -79,7 +80,9 @@ export class VisitlistComponent implements OnInit {
   loadVisits() {
     this._visitService.getAllVisit(Global.BASE_USER_ENDPOINTVisit + 'getAllVisit')
       .subscribe(visits => {
-        this.dataSource = new MatTableDataSource<IVisit>(visits);
+        // this.dataSource = new MatTableDataSource<IVisit>(visits);
+        this.dataSource = new MatTableDataSource<IVisit>();
+        this.dataSource = visits;
         this.dataSource.paginator = this.paginator;
         this.array = visits;
         this.loadingState = false;
@@ -110,16 +113,16 @@ export class VisitlistComponent implements OnInit {
     this.dbops = DBOperation.update;
     this.modalTitle = 'Edit Visit';
     this.modalBtnTitle = 'Update';
-    // this.visit = this.dataSource.data.filter(x => x.id === id)[0];
-    // todo: hacer un foreac que recorra el contenido de datasource.data y recuepere los datos del elemento seleccionado
-   this.dataSource.data.forEach();
+    this.visit = this.dataSource.filter(x => x.id === id)[0];
+    // this.visit2 = this.dataSource.data.filter(x => x.id === id);
+    // // todo: hacer un foreac que recorra el contenido de datasource.data y recuepere los datos del elemento seleccionado
    this.openDialog();
   }
   deleteVisit(id: number) {
     this.dbops = DBOperation.delete;
     this.modalTitle = 'Confirm to Delete ?';
     this.modalBtnTitle = 'Delete';
-    this.visit = this.dataSource.data.filter(x => x.id === id)[0];
+    this.visit = this.dataSource.filter(x => x.id === id)[0];
     this.openDialog();
   }
   showMessage(msg: string) {
