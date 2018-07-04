@@ -81,7 +81,6 @@ export class ContactlistComponent implements OnInit {
         this.dataSource = new MatTableDataSource<IContact>();
         this.dataSource = contacts;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         this.array = contacts;
         this.loadingState = false;
         this.totalSize = this.array.length;
@@ -94,6 +93,8 @@ export class ContactlistComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
+    this.dataSource.sort = this.sort;
+
   }
 
   public handlePage(e: any) {
