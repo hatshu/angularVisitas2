@@ -2,7 +2,7 @@ import { IContact } from './../model/contact';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSort } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -34,6 +34,7 @@ export class ContactlistComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(public snackBar: MatSnackBar, private _contactService: ContactService, private dialog: MatDialog) { }
 
@@ -80,6 +81,7 @@ export class ContactlistComponent implements OnInit {
         this.dataSource = new MatTableDataSource<IContact>();
         this.dataSource = contacts;
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         this.array = contacts;
         this.loadingState = false;
         this.totalSize = this.array.length;

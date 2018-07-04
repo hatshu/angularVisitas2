@@ -5,13 +5,8 @@
       <h2 align="center"> <mat-icon class="example-icon">people</mat-icon>Lista de Contactos</h2>
       <div class="contactlist-container mat-elevation-z8">
       <div><button title="Create" mat-raised-button color="accent" (click)="addContact()">Create</button></div>
-      <table mat-table #table [dataSource]="dataSource">
+      <table mat-table #table [dataSource]="dataSource" matSort matSortActive="birth" matSortDirection="desc" >
 
-        <!-- Id Column -->
-        <!-- <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container> -->
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -33,7 +28,7 @@
 
         <!-- Birth Column -->
         <ng-container matColumnDef="birth">
-          <th mat-header-cell *matHeaderCellDef> Birthday </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Birthday </th>
           <td mat-cell *matCellDef="let element"> {{element.birth | date: 'MM-dd-yyyy' }} </td>
         </ng-container>
 
@@ -64,13 +59,7 @@
       <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
      [pageIndex]="currentPage" (page)="pageEvent = handlePage ($event)">
      </mat-paginator>
-      <!-- <mat-paginator #paginator
-      [length]="dataSource?.data.length"
-      [pageSize]="5"
-      [pageSizeOptions]="[5,10,15,25]"
-      [showFirstLastButtons]="true">
-    </mat-paginator> -->
-      <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="7" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="listLength"> -->
+
     </div>
   </ng-template>
   <p>&nbsp;</p>

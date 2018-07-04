@@ -78,7 +78,8 @@ import {MatMenuModule} from '@angular/material/menu';
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCardModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSortModule
     ],
 })
 export class AppMaterialModule { }
