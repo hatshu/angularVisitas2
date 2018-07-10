@@ -29,7 +29,7 @@ export class ContactBrowserComponent implements OnInit {
   public dataSource: any;
 
   // set columns that will need to show in listing table
-  displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
+  displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message'];
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();
 
@@ -43,26 +43,29 @@ export class ContactBrowserComponent implements OnInit {
 
   ngOnInit() {
     this.loadingState = true;
-    this.loadContactsBrowser();
+    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+    .subscribe(contacts => {
+      // this.dataSource = new MatTableDataSource<IContact>(contacts);
+      this.dataSource = new MatTableDataSource<IContact>();
+      this.dataSource = contacts;
+      this.dataSource.paginator = this.paginator;
+      this.array = contacts;
+      this.loadingState = false;
+      this.totalSize = this.array.length;
+      this.iterator();
+  });
+    // this.loadContactsBrowser();
   }
 
-  loadContactsBrowser() {
-    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-      .subscribe(contacts => {
-        // this.dataSource = new MatTableDataSource<IContact>(contacts);
-        this.dataSource = new MatTableDataSource<IContact>();
-        this.dataSource = contacts;
-        this.dataSource.paginator = this.paginator;
-        this.array = contacts;
-        this.loadingState = false;
-        this.totalSize = this.array.length;
-        this.iterator();
-    });
-  }
+  loadContactsBrowser() {}
+
   private iterator() {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
+    this.array.filterPredicate = function(data, filter: string): boolean {
+      return data.name.toLowerCase().includes(filter) || data.symbol.toLowerCase().includes(filter);
+    };
     this.dataSource = part;
   }
 
@@ -77,8 +80,9 @@ export class ContactBrowserComponent implements OnInit {
   }
 
   public applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.array.filter = filterValue;
   }
-
-
 }
