@@ -76,4 +76,9 @@ export class ContactBrowserComponent implements OnInit {
     return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
   }
 
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
 }
