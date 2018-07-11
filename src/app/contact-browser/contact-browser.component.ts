@@ -22,12 +22,9 @@ export class ContactBrowserComponent implements OnInit {
   modalTitle: string;
   modalBtnTitle: string;
   length: number;
-  public pageSize = 10;
-  public currentPage = 0;
-  public totalSize = 0;
   public array: any;
   public dataSource: any;
-  public howmany: number;
+
 
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message'];
@@ -74,6 +71,5 @@ export class ContactBrowserComponent implements OnInit {
     };
     this.dataSource = this.array;
     this.dataSource = this.dataSource.filter(x => x.name === filterValue);
-    this.howmany = this.dataSource.lenght;
   }
 }
