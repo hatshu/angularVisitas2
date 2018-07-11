@@ -3,7 +3,7 @@
   </div>
   <ng-template class="contactlist" #contactlist>
 
-      <h2 align="center"> <mat-icon class="example-icon">lupa</mat-icon>Buscador</h2>
+      <h2 align="center"> <mat-icon class="example-icon">lupa</mat-icon>Buscar</h2>
       <div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscador">
@@ -65,9 +65,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-      <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+      <!-- <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
      [pageIndex]="currentPage" (page)="pageEvent = handlePage ($event)">
-     </mat-paginator>
+     </mat-paginator> -->
       <!-- <mat-paginator #paginator
       [length]="dataSource?.data.length"
       [pageSize]="5"
