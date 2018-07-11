@@ -2,7 +2,7 @@ import { IContact } from './../model/contact';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialog, MatSort } from '@angular/material';
+import { MatDialog, Sort } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -34,7 +34,6 @@ export class ContactlistComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 //   getProperty = (obj, path) => (
 //     path.split('.').reduce((o, p) => o && o[p], obj)
 // )
@@ -82,7 +81,7 @@ export class ContactlistComponent implements OnInit {
         // this.dataSource = new MatTableDataSource<IContact>(contacts);
         this.dataSource = new MatTableDataSource<IContact>();
         // todo: ordenar por nombre
-        this.dataSource = contacts.sort();
+        this.dataSource = contacts;
         // this.dataSource.sortingDataAccessor = (obj, property) => this.getProperty(obj, property);
         // this.dataSource.sort = this.sort;
         // this.dataSource.paginator = this.paginator;
@@ -93,8 +92,7 @@ export class ContactlistComponent implements OnInit {
     });
   }
 
-
-  private iterator() {
+private iterator() {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
@@ -138,5 +136,26 @@ export class ContactlistComponent implements OnInit {
       duration: 3000
     });
   }
+
+  sortData(sort: Sort) {
+    const data = this.dataSource.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSource = data;
+      return;
+    }
+
+    this.dataSource = data.sort((a, b) => {
+      const isAsc = sort.direction === 'desc';
+      switch (sort.active) {
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'birth': return compare(a.birth, b.birth, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
