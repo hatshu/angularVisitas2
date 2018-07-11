@@ -35,7 +35,9 @@ export class ContactlistComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+//   getProperty = (obj, path) => (
+//     path.split('.').reduce((o, p) => o && o[p], obj)
+// )
   constructor(public snackBar: MatSnackBar, private _contactService: ContactService, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -79,8 +81,11 @@ export class ContactlistComponent implements OnInit {
       .subscribe(contacts => {
         // this.dataSource = new MatTableDataSource<IContact>(contacts);
         this.dataSource = new MatTableDataSource<IContact>();
-        this.dataSource = contacts;
-        this.dataSource.paginator = this.paginator;
+        // todo: ordenar por nombre
+        this.dataSource = contacts.sort();
+        // this.dataSource.sortingDataAccessor = (obj, property) => this.getProperty(obj, property);
+        // this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
         this.array = contacts;
         this.loadingState = false;
         this.totalSize = this.array.length;
@@ -88,14 +93,15 @@ export class ContactlistComponent implements OnInit {
     });
   }
 
+
   private iterator() {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
-    this.dataSource.sort = this.sort;
-
   }
+
+
 
   public handlePage(e: any) {
     this.currentPage = e.pageIndex;

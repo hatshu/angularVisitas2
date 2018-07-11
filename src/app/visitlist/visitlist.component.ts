@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSort } from '@angular/material';
 import { VisitformComponent } from '../visitform/visitform.component';
 import { ContactBrowserComponent } from '../contact-browser/contact-browser.component';
 import { VisitService } from '../services/visit.service';
@@ -31,7 +31,8 @@ export class VisitlistComponent implements OnInit {
   dbops: DBOperation;
   modalTitle: string;
   modalBtnTitle: string;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild( MatPaginator ) paginator: MatPaginator;
+  @ViewChild( MatSort) sort: MatSort;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
@@ -131,6 +132,7 @@ export class VisitlistComponent implements OnInit {
         this.dataSource = visits;
         this.dataSource.paginator = this.paginator;
         this.array = visits;
+        // this.array.sort = this.sort;
         this.loadingState = false;
         this.totalSize = this.array.length;
         this.iterator();
