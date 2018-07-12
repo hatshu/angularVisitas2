@@ -85,7 +85,7 @@ export class ContactlistComponent implements OnInit {
         // this.dataSource.sortingDataAccessor = (obj, property) => this.getProperty(obj, property);
         // this.dataSource.sort = this.sort;
         // this.dataSource.paginator = this.paginator;
-        this.array = contacts;
+        this.array =  this.sortAllDataByName(contacts);
         this.loadingState = false;
         this.totalSize = this.array.length;
         this.iterator();
@@ -137,6 +137,23 @@ private iterator() {
     });
   }
 
+  sortAllDataByName(contacts: IContact[]): IContact[] {
+    contacts.sort(function(a, b) {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+      // sort string ascending
+      return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+   // default return value (no sorting)
+      return 0;
+  });
+  return contacts;
+  }
+
   sortData(sort: Sort) {
     const data = this.dataSource.slice();
     if (!sort.active || sort.direction === '') {
@@ -154,8 +171,6 @@ private iterator() {
     });
   }
 }
-
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
-
