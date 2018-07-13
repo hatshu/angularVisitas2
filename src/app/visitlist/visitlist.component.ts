@@ -129,10 +129,9 @@ export class VisitlistComponent implements OnInit {
       .subscribe(visits => {
         // this.dataSource = new MatTableDataSource<IVisit>(visits);
         this.dataSource = new MatTableDataSource<IVisit>();
-        this.dataSource = visits;
+        this.dataSource = this.sortAllDataByFecha(visits);
         this.dataSource.paginator = this.paginator;
         this.array = visits;
-        // this.array.sort = this.sort;
         this.loadingState = false;
         this.totalSize = this.array.length;
         this.iterator();
@@ -142,7 +141,6 @@ export class VisitlistComponent implements OnInit {
   loadContacts() {
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
       .subscribe(contacts => {
-        // this.dataSource = new MatTableDataSource<IVisit>(visits);
         this.dataSource2 = new MatTableDataSource<IContact>();
         this.dataSource2 = contacts;
         this.dataSource2.paginator = this.paginator;
@@ -192,6 +190,10 @@ export class VisitlistComponent implements OnInit {
     this.modalTitle = 'Add Contact to Visit';
     this.modalBtnTitle = 'Add';
     this.openDialog2Contacts();
+  }
+  sortAllDataByFecha(visits: IVisit[]): IVisit[] {
+    visits.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+    return visits;
   }
   showMessage(msg: string) {
     this.snackBar.open(msg, '', {
