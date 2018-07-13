@@ -28,7 +28,9 @@ export class ContactlistComponent implements OnInit {
   public dataSource: any;
 
   // set columns that will need to show in listing table
-  displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
+  // displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
+  displayedColumns = ['name', 'surname', 'dni', 'company', 'message', 'fecha', 'action'];
+
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();
 
@@ -80,11 +82,7 @@ export class ContactlistComponent implements OnInit {
       .subscribe(contacts => {
         // this.dataSource = new MatTableDataSource<IContact>(contacts);
         this.dataSource = new MatTableDataSource<IContact>();
-        // todo: ordenar por nombre
         this.dataSource = contacts;
-        // this.dataSource.sortingDataAccessor = (obj, property) => this.getProperty(obj, property);
-        // this.dataSource.sort = this.sort;
-        // this.dataSource.paginator = this.paginator;
         this.array =  this.sortAllDataByName(contacts);
         this.loadingState = false;
         this.totalSize = this.array.length;

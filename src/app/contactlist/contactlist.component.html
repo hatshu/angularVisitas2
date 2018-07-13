@@ -8,33 +8,49 @@
       <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortDirection="desc">
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <!-- Email Column -->
-        <ng-container matColumnDef="email">
+        <!-- <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef> Email </th>
           <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+          <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
         </ng-container>
-
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef> DNI </th>
+          <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+        </ng-container>
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef> Empresa </th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+        <!-- Fecha Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'MM-dd-yyyy' }} </td>
+        </ng-container>
         <!-- Gender Column -->
-        <ng-container matColumnDef="gender">
+        <!-- <ng-container matColumnDef="gender">
           <th mat-header-cell *matHeaderCellDef> Gender </th>
           <td mat-cell *matCellDef="let element"> {{getGender(element.gender)}} &nbsp;&nbsp; </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Birth Column -->
-        <ng-container matColumnDef="birth">
+        <!-- <ng-container matColumnDef="birth">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Birthday </th>
           <td mat-cell *matCellDef="let element"> {{element.birth | date: 'MM-dd-yyyy' }} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Technology Column -->
-        <ng-container matColumnDef="techno">
+        <!-- <ng-container matColumnDef="techno">
           <th mat-header-cell *matHeaderCellDef> Technology </th>
           <td mat-cell *matCellDef="let element"> {{element.techno}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Message Column -->
         <ng-container matColumnDef="message">

@@ -40,11 +40,19 @@ export class ContactformComponent implements OnInit {
     this.contactFrm = this.fb.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
-      gender: ['', [Validators.required]],
-      birth: ['', [Validators.required]],
-      techno: ['', [Validators.required]],
-      message: ['', [Validators.required]]
+      // email: ['', [Validators.required, Validators.email]],
+      // email: [''],
+      // gender: ['', [Validators.required]],
+      // gender: [''],
+      // birth: ['', [Validators.required]],
+      // birth: [''],
+      // techno: ['', [Validators.required]],
+      // techno: [''],
+      message: [''],
+      // TODO: añadir que sea unico que no se meta otro duplicado
+      dni: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
+      company: ['']
     });
     this.genders = Global.genders;
     this.technologies = Global.technologies;
@@ -83,11 +91,14 @@ export class ContactformComponent implements OnInit {
   // tslint:disable-next-line:member-ordering
   formErrors = {
     'name': '',
-    'email': '',
-    'gender': '',
-    'birth': '',
-    'techno': '',
-    'message': ''
+    // 'email': '',
+    // 'gender': '',
+    // 'birth': '',
+    // 'techno': '',
+    'message': '',
+    'dni': '',
+    'company': '',
+    'surname': '',
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
@@ -96,21 +107,30 @@ export class ContactformComponent implements OnInit {
       'maxlength': 'Name cannot be more than 50 characters long.',
       'required': 'Name is required.'
     },
-    'email': {
-      'email': 'Invalid email format.',
-      'required': 'Email is required.'
-    },
-    'gender': {
-      'required': 'Gender is required.'
-    },
-    'techno': {
-      'required': 'Technology is required.'
-    },
-    'birth': {
-      'required': 'Birthday is required.'
-    },
+    // 'email': {
+    //   'email': 'Invalid email format.',
+    //   'required': 'Email is required.'
+    // },
+    // 'gender': {
+    //   'required': 'Gender is required.'
+    // },
+    // 'techno': {
+    //   'required': 'Technology is required.'
+    // },
+    // 'birth': {
+    //   'required': 'Birthday is required.'
+    // },
     'message': {
       'required': 'message is required.'
+    },
+    'surname': {
+      'required': 'surname is required.'
+    },
+    'dni': {
+      'required': 'surname is required.'
+    },
+    'company': {
+      'required': 'company is required.'
     }
 
   };
@@ -169,7 +189,7 @@ export class ContactformComponent implements OnInit {
   }
 
   mapDateData(contact: IContact): IContact {
-    contact.birth = new Date(contact.birth).toISOString();
+    contact.fecha = new Date(contact.fecha).toISOString();
     return contact;
   }
 }

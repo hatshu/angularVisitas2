@@ -23,7 +23,7 @@ namespace contact_app.Controllers
         [Route("getAllContact")]
         public IEnumerable<Contact> GetAll()
         {
-            // fetch all contact records 
+            // fetch all contact records
             return _context.Contact.ToList();
         }
 
@@ -50,12 +50,12 @@ namespace contact_app.Controllers
             }
             _context.Contact.Add(new Contact
             {
+                message = item.message,
                 name = item.name,
-                email = item.email,
-                gender = item.gender,
-                birth = item.birth,
-                techno = item.techno,
-                message = item.message
+                surname = item.surname,
+                company = item.company,
+                fecha = DateTime.Now,
+                dni = item.dni
             });
             _context.SaveChanges();
 
@@ -77,13 +77,12 @@ namespace contact_app.Controllers
             {
                 return NotFound();
             }
-
-            contact.name = item.name;
-            contact.email = item.email;
-            contact.gender = item.gender;
-            contact.birth = item.birth;
-            contact.techno = item.techno;
             contact.message = item.message;
+            contact.name = item.name;
+            contact.surname = item.surname;
+            contact.company = item.company;
+            //contact.fecha = item.fecha;
+            contact.dni = item.dni;
 
             _context.Contact.Update(contact);
             _context.SaveChanges();

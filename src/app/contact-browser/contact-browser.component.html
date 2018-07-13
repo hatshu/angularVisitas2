@@ -13,37 +13,37 @@
       <table mat-table #table [dataSource]="dataSource">
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <!-- Email Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+          <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
         </ng-container>
 
         <!-- Gender Column -->
-        <ng-container matColumnDef="gender">
-          <th mat-header-cell *matHeaderCellDef> Gender </th>
-          <td mat-cell *matCellDef="let element"> {{getGender(element.gender)}} &nbsp;&nbsp; </td>
+        <ng-container matColumnDef="displayedColumns">
+          <th mat-header-cell *matHeaderCellDef> ID / PASSPORT / DNI </th>
+          <td mat-cell *matCellDef="let element"> {{element.dni}}  </td>
         </ng-container>
 
         <!-- Birth Column -->
-        <ng-container matColumnDef="birth">
-          <th mat-header-cell *matHeaderCellDef> Birthday </th>
-          <td mat-cell *matCellDef="let element"> {{element.birth | date: 'MM-dd-yyyy' }} </td>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'MM-dd-yyyy' }} </td>
         </ng-container>
 
         <!-- Technology Column -->
-        <ng-container matColumnDef="techno">
+        <!-- <ng-container matColumnDef="techno">
           <th mat-header-cell *matHeaderCellDef> Technology </th>
           <td mat-cell *matCellDef="let element"> {{element.techno}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Message Column -->
         <ng-container matColumnDef="message">
-          <th mat-header-cell *matHeaderCellDef> Message </th>
+          <th mat-header-cell *matHeaderCellDef> Mensaje </th>
           <td mat-cell *matCellDef="let element"> {{element.message}} </td>
         </ng-container>
 
