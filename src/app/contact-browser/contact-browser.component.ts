@@ -27,12 +27,12 @@ export class ContactBrowserComponent implements OnInit {
 
 
   // set columns that will need to show in listing table
-  displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message'];
+  displayedColumns = ['name', 'surname', 'company', 'dni', 'fecha'];
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public snackBar: MatSnackBar,
     private _contactService: ContactService,
@@ -50,7 +50,9 @@ export class ContactBrowserComponent implements OnInit {
   });
   }
 
-  loadContactsBrowser() {}
+  loadContactsBrowser() {
+
+  }
 
   private iterator() {
   }
@@ -58,18 +60,18 @@ export class ContactBrowserComponent implements OnInit {
   public handlePage(e: any) {
   }
 
-  public getGender(gender: number): string {
-    return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
-  }
+  // public getGender(gender: number): string {
+  //   return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
+  // }
 
   public applyFilter(filterValue: string) {
     // this.dataSource.filter = filterValue.trim().toLowerCase();
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.array.filterPredicate = function(data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
-    };
+    // this.array.filterPredicate = function(data, filter: string): boolean {
+    //   return data.name.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
+    // };
     this.dataSource = this.array;
-    this.dataSource = this.dataSource.filter(x => x.name === filterValue);
+    this.dataSource = this.dataSource.filter(x => x.name.toLowerCase() === filterValue);
   }
 }

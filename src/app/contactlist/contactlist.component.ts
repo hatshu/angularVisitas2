@@ -29,7 +29,7 @@ export class ContactlistComponent implements OnInit {
 
   // set columns that will need to show in listing table
   // displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
-  displayedColumns = ['name', 'surname', 'dni', 'company', 'message', 'fecha', 'action'];
+  displayedColumns = ['name', 'surname', 'dni', 'company', 'fecha', 'action'];
 
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();

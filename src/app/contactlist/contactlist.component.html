@@ -2,7 +2,7 @@
   <mat-spinner></mat-spinner>
   </div>
   <ng-template class="contactlist" #contactlist>
-      <h2 align="center"> <mat-icon class="example-icon">people</mat-icon>Lista de Contactos</h2>
+      <h2 align="left"> <mat-icon class="example-icon">people</mat-icon>Listado de Visitantes</h2>
       <div class="contactlist-container mat-elevation-z8">
       <div><button title="Create" mat-raised-button color="accent" (click)="addContact()">Create</button></div>
       <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortDirection="desc">
@@ -31,7 +31,7 @@
         </ng-container>
         <!-- Fecha Column -->
         <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <th mat-header-cell *matHeaderCellDef > Fecha </th>
           <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'MM-dd-yyyy' }} </td>
         </ng-container>
         <!-- Gender Column -->
@@ -53,10 +53,10 @@
         </ng-container> -->
 
         <!-- Message Column -->
-        <ng-container matColumnDef="message">
+        <!-- <ng-container matColumnDef="message">
           <th mat-header-cell *matHeaderCellDef> Message </th>
           <td mat-cell *matCellDef="let element"> {{element.message}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>

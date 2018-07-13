@@ -48,7 +48,7 @@ export class ContactformComponent implements OnInit {
       // birth: [''],
       // techno: ['', [Validators.required]],
       // techno: [''],
-      message: [''],
+      // message: [''],
       // TODO: añadir que sea unico que no se meta otro duplicado
       dni: ['', [Validators.required]],
       surname: ['', [Validators.required]],
@@ -95,7 +95,7 @@ export class ContactformComponent implements OnInit {
     // 'gender': '',
     // 'birth': '',
     // 'techno': '',
-    'message': '',
+    // 'message': '',
     'dni': '',
     'company': '',
     'surname': '',
@@ -120,9 +120,9 @@ export class ContactformComponent implements OnInit {
     // 'birth': {
     //   'required': 'Birthday is required.'
     // },
-    'message': {
-      'required': 'message is required.'
-    },
+    // 'message': {
+    //   'required': 'message is required.'
+    // },
     'surname': {
       'required': 'surname is required.'
     },

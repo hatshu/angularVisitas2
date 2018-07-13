@@ -5,7 +5,7 @@
     <h2 ><mat-icon class="example-icon">search</mat-icon>Buscar:</h2>
     <div>
       <mat-form-field appearance="outline">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar por nombre">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar por ID / PASSPORT / DNI">
       </mat-form-field>
     </div>
 
@@ -24,9 +24,15 @@
         </ng-container>
 
         <!-- Gender Column -->
-        <ng-container matColumnDef="displayedColumns">
+        <ng-container matColumnDef="dni">
           <th mat-header-cell *matHeaderCellDef> ID / PASSPORT / DNI </th>
           <td mat-cell *matCellDef="let element"> {{element.dni}}  </td>
+        </ng-container>
+
+       <!-- Gender Column -->
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef> Empresa </th>
+          <td mat-cell *matCellDef="let element"> {{element.company}}  </td>
         </ng-container>
 
         <!-- Birth Column -->
@@ -42,10 +48,10 @@
         </ng-container> -->
 
         <!-- Message Column -->
-        <ng-container matColumnDef="message">
+        <!-- <ng-container matColumnDef="message">
           <th mat-header-cell *matHeaderCellDef> Mensaje </th>
           <td mat-cell *matCellDef="let element"> {{element.message}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
