@@ -72,6 +72,6 @@ export class ContactBrowserComponent implements OnInit {
     //   return data.name.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
     // };
     this.dataSource = this.array;
-    this.dataSource = this.dataSource.filter(x => x.name.toLowerCase() === filterValue);
+    this.dataSource = this.dataSource.filter(x => x.dni.toLowerCase() === filterValue);
   }
 }
