@@ -40,6 +40,7 @@ export class VisitlistComponent implements OnInit {
   public dataSource: any;
   public array2: any;
   public dataSource2: any;
+  public visitaActiva: IVisit;
 
 
   // set columns that will need to show in listing table
@@ -86,10 +87,10 @@ export class VisitlistComponent implements OnInit {
     });
   }
 
-  openDialog2Contacts(): void {
+  openDialog2Contacts(visit: IVisit): void {
     const dialogRef = this.dialog.open(ContactBrowserComponent, {
       width: '800px',
-      data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, contat: this.contact }
+      data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, visitaActiva: visit }
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -185,11 +186,12 @@ export class VisitlistComponent implements OnInit {
     this.visit = this.dataSource.filter(x => x.id === id)[0];
     this.openDialog();
   }
-  addContact2Visit() {
+  addContact2Visit(id: number) {
     this.dbops = DBOperation.create;
     this.modalTitle = 'Add Contact to Visit';
     this.modalBtnTitle = 'Add';
-    this.openDialog2Contacts();
+    this.visitaActiva = this.dataSource.filter(x => x.id === id)[0];
+    this.openDialog2Contacts(this.visitaActiva);
   }
   sortAllDataByFecha(visits: IVisit[]): IVisit[] {
     visits.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
