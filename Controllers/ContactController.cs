@@ -50,7 +50,6 @@ namespace contact_app.Controllers
             }
             _context.Contact.Add(new Contact
             {
-                message = item.message,
                 name = item.name,
                 surname = item.surname,
                 company = item.company,
@@ -77,13 +76,11 @@ namespace contact_app.Controllers
             {
                 return NotFound();
             }
-            contact.message = item.message;
             contact.name = item.name;
             contact.surname = item.surname;
             contact.company = item.company;
             //contact.fecha = item.fecha;
             contact.dni = item.dni;
-
             _context.Contact.Update(contact);
             _context.SaveChanges();
             return Ok( new { message= "Contact is updated successfully."});

@@ -2,10 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, AUTOCOMPLETE_PANEL_HEIGHT } from '@angular/material';
+import { MatDialog,
+         MatDialogRef,
+        MAT_DIALOG_DATA,
+        AUTOCOMPLETE_PANEL_HEIGHT
+} from '@angular/material';
 
 import { ContactlistComponent } from '../contactlist/contactlist.component';
-
 import { IContact } from '../model/contact';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -24,38 +27,27 @@ export class ContactformComponent implements OnInit {
   // dbops: DBOperation;
   // modalTitle: string;
   // modalBtnTitle: string;
-  listFilter: string;
-  selectedOption: string;
+  // listFilter: string;
+  // selectedOption: string;
   // contact: IContact;
-  genders = [];
-  technologies = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private _contactService: ContactService,
-    public dialogRef: MatDialogRef<ContactlistComponent>) { }
+    public dialogRef: MatDialogRef<ContactlistComponent>
+  ) { }
 
   ngOnInit() {
     // built contact form
     this.contactFrm = this.fb.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      // email: ['', [Validators.required, Validators.email]],
-      // email: [''],
-      // gender: ['', [Validators.required]],
-      // gender: [''],
-      // birth: ['', [Validators.required]],
-      // birth: [''],
-      // techno: ['', [Validators.required]],
-      // techno: [''],
-      // message: [''],
-      // TODO: añadir que sea unico que no se meta otro duplicado
-      dni: ['', [Validators.required]],
       surname: ['', [Validators.required]],
-      company: ['']
+      company: [''],
+      dni: ['', [Validators.required]]
     });
-    this.genders = Global.genders;
-    this.technologies = Global.technologies;
 
     // subscribe on value changed event of form to show validation message
     this.contactFrm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -90,55 +82,30 @@ export class ContactformComponent implements OnInit {
   // form errors model
   // tslint:disable-next-line:member-ordering
   formErrors = {
-    'name': '',
-    // 'email': '',
-    // 'gender': '',
-    // 'birth': '',
-    // 'techno': '',
-    // 'message': '',
-    'dni': '',
-    'company': '',
-    'surname': '',
+    name: '',
+    surname: '',
+    dni: '',
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
   validationMessages = {
-    'name': {
-      'maxlength': 'Name cannot be more than 50 characters long.',
-      'required': 'Name is required.'
+    name: {
+      maxlength: 'Name cannot be more than 50 characters long.',
+      required: 'Name is required.'
     },
-    // 'email': {
-    //   'email': 'Invalid email format.',
-    //   'required': 'Email is required.'
-    // },
-    // 'gender': {
-    //   'required': 'Gender is required.'
-    // },
-    // 'techno': {
-    //   'required': 'Technology is required.'
-    // },
-    // 'birth': {
-    //   'required': 'Birthday is required.'
-    // },
-    // 'message': {
-    //   'required': 'message is required.'
-    // },
-    'surname': {
-      'required': 'surname is required.'
+    surname: {
+     required: 'surname is required.'
     },
-    'dni': {
-      'required': 'surname is required.'
-    },
-    'company': {
-      'required': 'company is required.'
+    dni: {
+      required: 'surname is required.'
     }
-
   };
   onSubmit(formData: any) {
     const contactData = this.mapDateData(formData.value);
     switch (this.data.dbops) {
       case DBOperation.create:
-        this._contactService.addContact(Global.BASE_USER_ENDPOINT + 'addContact', contactData).subscribe(
+        this._contactService.addContact(Global.BASE_USER_ENDPOINT + 'addContact', contactData)
+        .subscribe(
           data => {
             // Success
             if (data.message) {
@@ -153,7 +120,11 @@ export class ContactformComponent implements OnInit {
         );
         break;
       case DBOperation.update:
-        this._contactService.updateContact(Global.BASE_USER_ENDPOINT + 'updateContact', contactData.id, contactData).subscribe(
+        this._contactService.
+        updateContact(
+          Global.BASE_USER_ENDPOINT + 'updateContact',
+          contactData.id,
+          contactData).subscribe(
           data => {
             // Success
             if (data.message) {
@@ -189,7 +160,6 @@ export class ContactformComponent implements OnInit {
   }
 
   mapDateData(contact: IContact): IContact {
-    // contact.fecha = new Date(contact.fecha).toISOString();
     return contact;
   }
 }
