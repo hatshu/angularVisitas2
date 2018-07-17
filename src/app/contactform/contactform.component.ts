@@ -189,7 +189,7 @@ export class ContactformComponent implements OnInit {
   }
 
   mapDateData(contact: IContact): IContact {
-    contact.fecha = new Date(contact.fecha).toISOString();
+    // contact.fecha = new Date(contact.fecha).toISOString();
     return contact;
   }
 }
