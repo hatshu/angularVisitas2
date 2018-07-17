@@ -1,7 +1,8 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { IContact } from './../model/contact';
+import { IEnlaceVisitContact } from './../model/enlaceVisitContact';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 import { ContactService } from '../services/contact.service';
 import { EnlaceService } from '../services/enlace.service';
@@ -29,7 +30,6 @@ export class ContactBrowserComponent implements OnInit {
   public visita: number;
   public contacto: number;
   public motivo: string;
-
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'surname', 'company', 'dni', 'fecha', 'action'];
   // setting up datasource for material table
@@ -41,8 +41,9 @@ export class ContactBrowserComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
-    // private _enlaceService: EnlaceService,
-    private dialog: MatDialog) { }
+    private _enlaceService: EnlaceService,
+    private dialog: MatDialogRef<ContactBrowserComponent>
+  ) { }
 
   ngOnInit() {
     this.loadingState = true;
@@ -80,8 +81,40 @@ export class ContactBrowserComponent implements OnInit {
   }
 
   addContact2Visit (element: any) {
-    this.contacto = element;
-    this.visita = this.data.visitaActiva.id;
+    // const enlaceData: IEnlaceVisitContact = {
+    //   id: 0,
+    //   contactId: element,
+    //   visitId: this.data.visitaActiva.id
+    // };
+    const enlaceData: IEnlaceVisitContact = <IEnlaceVisitContact> {
+    contactId: element,
+    visitId: this.data.visitaActiva.id
+    };
+
+    // this.contacto = element;
+    // this.visita = this.data.visitaActiva.id;
     // TODO: abrir popup mostrando datos y añadir servicio de enlace y añadir datos.
+    this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
+      data => {
+          // Success
+          if (data.message) {
+            // TODO: success
+          this.dialog.close('success');
+          } else {
+            // TODO: error
+            this.dialog.close('error');
+
+          }
+        },
+        error => {
+          // TODO: error
+          this.dialog.close('error');
+        }
+      );
+  }
+
+  mapDateData(enlace: IEnlaceVisitContact): IEnlaceVisitContact {
+    // visit.fecha = new Date(visit.fecha).toISOString();
+    return enlace;
   }
 }
