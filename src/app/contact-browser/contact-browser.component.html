@@ -49,8 +49,10 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element">
-            <button title="Add to Visit" mat-raised-button color="primary" (click)="addContact2Visit(element.id)"><mat-icon class="example-icon">add</mat-icon></button>
-         </td>
+            <!-- <button title="Add to Visit" mat-raised-button color="primary" (click)="addContact2Visit(element.id)"><mat-icon class="example-icon">add</mat-icon></button> -->
+            <button title="Add to Visit" mat-raised-button color="primary" (click)="openConfirmationDialog()"><mat-icon class="example-icon">add</mat-icon></button>
+
+          </td>
         </ng-container>
 
         <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
