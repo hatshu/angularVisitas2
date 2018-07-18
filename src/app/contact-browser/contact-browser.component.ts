@@ -5,7 +5,7 @@ import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
 import { VisitformComponent } from '../visitform/visitform.component';
-
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { ContactService } from '../services/contact.service';
 import { EnlaceService } from '../services/enlace.service';
 import { DBOperation } from '../shared/DBOperations';
@@ -43,8 +43,8 @@ export class ContactBrowserComponent implements OnInit {
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
-    private dialog: MatDialogRef<ContactBrowserComponent>,
-    private dialog2: MatDialog
+    private dialogAux: MatDialogRef<ContactBrowserComponent>,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -118,18 +118,33 @@ export class ContactBrowserComponent implements OnInit {
           // Success
           if (data.message) {
             // TODO: success
-          this.dialog.close('success');
+          this.dialogAux.close('success');
           } else {
             // TODO: error
-            this.dialog.close('error');
+            this.dialogAux.close('error');
 
           }
         },
         error => {
           // TODO: error
-          this.dialog.close('error');
+          this.dialogAux.close('error');
         }
       );
+  }
+
+  openConfirmationDialog() {
+    const dialogRef2 = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: {contaco: 'this.contact', visita: 'this.data'}
+    });
+    dialogRef2.componentInstance.confirmMessage = 'Are you sure you want to add?';
+
+    dialogRef2.afterClosed().subscribe(result => {
+      if (result) {
+        // do confirmation actions
+      }
+      // this.dialogRef2 = null;
+    });
   }
 
   mapDateData(enlace: IEnlaceVisitContact): IEnlaceVisitContact {

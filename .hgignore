@@ -10,6 +10,4 @@ dist/*
 contact-app.csproj.user
 src/app/*/*.orig
 Controllers/EnlaceVisitContactController.cs.orig
-src/app/confirmation-dialog/confirmation-dialog.component.ts
-src/app/confirmation-dialog/*
-src/app/app.module.ts.orig
+
