@@ -46,7 +46,8 @@ export class ContactformComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       surname: ['', [Validators.required]],
       company: [''],
-      dni: ['', [Validators.required]]
+      dni: [''  [Validators.required]],
+      fecha: ['']
     });
 
     // subscribe on value changed event of form to show validation message
@@ -84,6 +85,7 @@ export class ContactformComponent implements OnInit {
   formErrors = {
     name: '',
     surname: '',
+    company: '',
     dni: '',
   };
   // custom valdiation messages
@@ -96,9 +98,12 @@ export class ContactformComponent implements OnInit {
     surname: {
      required: 'surname is required.'
     },
+    // company: {
+    //   required: 'surname is required.'
+    // },
     dni: {
-      required: 'surname is required.'
-    }
+      required: 'dni is required.'
+    },
   };
   onSubmit(formData: any) {
     const contactData = this.mapDateData(formData.value);

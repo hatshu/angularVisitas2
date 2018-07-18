@@ -83,7 +83,7 @@ export class VisitformComponent implements OnInit {
     motivo: '',
     duracion: '',
     responsableCatec: '',
-    // fecha: '',
+    fecha: ''
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
