@@ -40,7 +40,7 @@ export class VisitformComponent implements OnInit {
       motivo: ['', [Validators.required, Validators.maxLength(50)]],
       duracion: [''],
       responsableCatec: ['', [Validators.required]],
-      // fecha: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
     });
 
     // subscribe on value changed event of form to show validation message
@@ -83,7 +83,7 @@ export class VisitformComponent implements OnInit {
     motivo: '',
     duracion: '',
     responsableCatec: '',
-    fecha: ''
+    // fecha: ''
   };
   // custom valdiation messages
   // tslint:disable-next-line:member-ordering
