@@ -2,14 +2,15 @@ import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { IContact } from './../model/contact';
 import { IEnlaceVisitContact } from './../model/enlaceVisitContact';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
+import { VisitformComponent } from '../visitform/visitform.component';
+
 import { ContactService } from '../services/contact.service';
 import { EnlaceService } from '../services/enlace.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
 import { IVisit } from './../model/visit';
-
 
 @Component({
   selector: 'app-contact-browser',
@@ -37,12 +38,13 @@ export class ContactBrowserComponent implements OnInit {
 
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // TODO: meter la visita activa aqui
+  // TODO: meter la visita activa aqui (REALIZADO)
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
-    private dialog: MatDialogRef<ContactBrowserComponent>
+    private dialog: MatDialogRef<ContactBrowserComponent>,
+    private dialog2: MatDialog
   ) { }
 
   ngOnInit() {
@@ -91,9 +93,26 @@ export class ContactBrowserComponent implements OnInit {
     visitId: this.data.visitaActiva.id
     };
 
-    // this.contacto = element;
-    // this.visita = this.data.visitaActiva.id;
+    this.contacto = element;
+    this.visita = this.data.visitaActiva.id;
     // TODO: abrir popup mostrando datos y añadir servicio de enlace y añadir datos.
+    // const dialogRef = this.dialog2.open(VisitformComponent, {
+    //   width: '50px',
+    //   data: { dbops: this.dbops, modalTitle: this.modalTitle,
+    //   modalBtnTitle: this.modalBtnTitle, visit: this.data, elemento: this.contact }
+    // });
+
+    //  dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   if (result === 'success') {
+    //     this.loadingState = true;
+    //     const visitaId: any = this.data.visitaActiva.id;
+    //   } else if (result === 'error') {
+    //     // this.showMessage('There is some issue in saving records, please contact to system administrator!');
+    //   } else {
+    //    // this.showMessage('Please try again, something went wrong');
+    //   }
+    // });
     this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
       data => {
           // Success
