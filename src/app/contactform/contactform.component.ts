@@ -46,7 +46,7 @@ export class ContactformComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       surname: ['', [Validators.required]],
       company: [''],
-      dni: [''  [Validators.required]],
+      dni: ['' , [Validators.required]],
       fecha: ['']
     });
 
