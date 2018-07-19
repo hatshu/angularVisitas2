@@ -43,7 +43,7 @@ export class ContactBrowserComponent implements OnInit {
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
-    private dialogAux: MatDialogRef<ContactBrowserComponent>,
+    public dialogAux: MatDialogRef<ContactBrowserComponent>,
     public dialog: MatDialog
   ) { }
 
@@ -95,24 +95,6 @@ export class ContactBrowserComponent implements OnInit {
 
     this.contacto = element;
     this.visita = this.data.visitaActiva.id;
-    // TODO: abrir popup mostrando datos y añadir servicio de enlace y añadir datos.
-    // const dialogRef = this.dialog2.open(VisitformComponent, {
-    //   width: '50px',
-    //   data: { dbops: this.dbops, modalTitle: this.modalTitle,
-    //   modalBtnTitle: this.modalBtnTitle, visit: this.data, elemento: this.contact }
-    // });
-
-    //  dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   if (result === 'success') {
-    //     this.loadingState = true;
-    //     const visitaId: any = this.data.visitaActiva.id;
-    //   } else if (result === 'error') {
-    //     // this.showMessage('There is some issue in saving records, please contact to system administrator!');
-    //   } else {
-    //    // this.showMessage('Please try again, something went wrong');
-    //   }
-    // });
     this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
       data => {
           // Success
@@ -132,18 +114,43 @@ export class ContactBrowserComponent implements OnInit {
       );
   }
 
-  openConfirmationDialog() {
+  openConfirmationDialog(element: any): void {
+    const persona = element.name + ' ' + element.surname;
+    this.visita = this.data.visitaActiva.id;
     const dialogRef2 = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
-      data: {contaco: 'this.contact', visita: 'this.data'}
+      width: '500px',
+      // data: {contaco: 'this.contact', visita: 'this.data'}
     });
-    dialogRef2.componentInstance.confirmMessage = 'Are you sure you want to add?';
+    dialogRef2.componentInstance.confirmMessage = '¿Deseña añadir a ' + persona + ' a la visita ?' ;
 
     dialogRef2.afterClosed().subscribe(result => {
       if (result) {
-        // do confirmation actions
+        const enlaceData: IEnlaceVisitContact = <IEnlaceVisitContact> {
+          contactId: element.id,
+          visitId: this.data.visitaActiva.id
+          };
+
+          // this.contacto = element.id;
+          // this.visita = this.data.visitaActiva.id;
+          this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
+            data => {
+                // Success
+                if (data.message) {
+                  // TODO: success
+                // this.dialogAux.close('success');
+                dialogRef2.close('success');
+                } else {
+                  // TODO: error
+                  dialogRef2.close('error');
+
+                }
+              },
+              error => {
+                // TODO: error
+                dialogRef2.close('error');
+              }
+            );
       }
-      // this.dialogRef2 = null;
     });
   }
 

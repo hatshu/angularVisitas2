@@ -12,7 +12,6 @@ import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
 import { EnlaceService } from './services/enlace.service';
 import { VisitService } from './services/visit.service';
-
 import { HomeComponent } from './home/home.component';
 import { VisitlistComponent } from './visitlist/visitlist.component';
 import { VisitformComponent } from './visitform/visitform.component';
@@ -30,6 +29,9 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ContactBrowserComponent,
     ConfirmationDialogComponent
   ],
+  entryComponents: [
+  ConfirmationDialogComponent
+ ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
