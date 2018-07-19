@@ -27,7 +27,9 @@ export class ContactBrowserComponent implements OnInit {
   modalBtnTitle: string;
   length: number;
   public array: any;
+  public array2: any;
   public dataSource: any;
+  public enlaceDataList: any;
   public visita: number;
   public contacto: number;
   public motivo: string;
@@ -55,6 +57,15 @@ export class ContactBrowserComponent implements OnInit {
       // this.dataSource = new MatTableDataSource<IContact>(contacts);
       this.dataSource = new MatTableDataSource<IContact>();
       this.array = contacts;
+      this.loadingState = false;
+  });
+    this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
+    .subscribe(enlace => {
+      // this.dataSource = new MatTableDataSource<IContact>(contacts);
+      this.enlaceDataList = new MatTableDataSource<IEnlaceVisitContact>();
+      this.enlaceDataList = enlace;
+      // TODO: falla this.data.visitaActiva.id
+      this.array2 = this.enlaceDataList.filter(x => x.id === this.data.visitaActiva.id);
       this.loadingState = false;
   });
   }
