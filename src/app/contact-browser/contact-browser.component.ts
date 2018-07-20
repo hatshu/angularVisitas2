@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Inject } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject, AfterContentInit } from '@angular/core';
 import { IContact } from './../model/contact';
 import { IEnlaceVisitContact } from './../model/enlaceVisitContact';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
@@ -17,7 +17,7 @@ import { IVisit } from './../model/visit';
   templateUrl: './contact-browser.component.html',
   styleUrls: ['./contact-browser.component.scss']
 })
-export class ContactBrowserComponent implements OnInit {
+export class ContactBrowserComponent implements OnInit, AfterContentInit {
 
   contacts: IContact[];
   contact: IContact;
@@ -29,12 +29,15 @@ export class ContactBrowserComponent implements OnInit {
   public array: any;
   public array2: any;
   public dataSource: any;
-  public enlaceDataList: any;
+  public dataSource2: any;
   public visita: number;
   public contacto: number;
   public motivo: string;
+  public visitaActivaId: number;
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'surname', 'company', 'dni', 'fecha', 'action'];
+  displayedColumns2 = ['contactId', 'visitId'];
+
   // setting up datasource for material table
   // dataSource = new MatTableDataSource<IContact>();
 
@@ -45,33 +48,31 @@ export class ContactBrowserComponent implements OnInit {
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
-    public dialogAux: MatDialogRef<ContactBrowserComponent>,
+    private dialogAux: MatDialogRef<ContactBrowserComponent>,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.loadingState = true;
     this.motivo = this.data.visitaActiva.motivo;
+    // this.visitaActivaId = this.data.visitaActiva.id;
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
     .subscribe(contacts => {
-      // this.dataSource = new MatTableDataSource<IContact>(contacts);
       this.dataSource = new MatTableDataSource<IContact>();
       this.array = contacts;
       this.loadingState = false;
-  });
+    });
     this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
     .subscribe(enlace => {
-      // this.dataSource = new MatTableDataSource<IContact>(contacts);
-      this.enlaceDataList = new MatTableDataSource<IEnlaceVisitContact>();
-      this.enlaceDataList = enlace;
-      // TODO: falla this.data.visitaActiva.id
-      this.array2 = this.enlaceDataList.filter(x => x.id === this.data.visitaActiva.id);
+      this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
+      this.array2 = enlace;
       this.loadingState = false;
   });
+  // TODO: falla this.data.visitaActiva.id
+
   }
 
-  loadContactsBrowser() {
-
+  ngAfterContentInit() {
   }
 
 
@@ -91,6 +92,8 @@ export class ContactBrowserComponent implements OnInit {
     // };
     this.dataSource = this.array;
     this.dataSource = this.dataSource.filter(x => x.dni.toLowerCase() === filterValue);
+    this.dataSource2 = this.array2;
+    this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
   }
 
   addContact2Visit (element: any) {
