@@ -48,7 +48,7 @@ export class ContactBrowserComponent implements OnInit {
     public snackBar: MatSnackBar,
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
-    private dialogAux: MatDialogRef<ContactBrowserComponent>,
+    public dialogAux: MatDialogRef<ContactBrowserComponent>,
     public dialog: MatDialog
   ) { }
 

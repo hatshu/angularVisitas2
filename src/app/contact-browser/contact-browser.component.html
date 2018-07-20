@@ -72,4 +72,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
     </table>
   </div>
+  <br/>
+  <br/>
+  <div md-dialog-actions>
+      <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cancelar</button>
+    </div>
 </ng-template>

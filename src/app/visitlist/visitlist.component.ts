@@ -90,6 +90,7 @@ export class VisitlistComponent implements OnInit {
   openDialog2Contacts(visit: IVisit): void {
     const dialogRef = this.dialog.open(ContactBrowserComponent, {
       width: '800px',
+      maxHeight: '700px',
       data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, visitaActiva: visit }
     });
 
