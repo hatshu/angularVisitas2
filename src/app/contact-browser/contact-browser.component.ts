@@ -56,12 +56,15 @@ export class ContactBrowserComponent implements OnInit {
     this.loadingState = true;
     this.motivo = this.data.visitaActiva.motivo;
     this.loadEnlaces();
-    // this.visitaActivaId = this.data.visitaActiva.id;
+    this.loadContacts();
+    this.loadingState = false;
+
+  }
+  loadContacts() {
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
     .subscribe(contacts => {
-      this.dataSource = new MatTableDataSource<IContact>();
-      this.array = contacts;
-      this.loadingState = false;
+    this.dataSource = new MatTableDataSource<IContact>();
+    this.array = contacts;
     });
   }
 
@@ -70,11 +73,11 @@ export class ContactBrowserComponent implements OnInit {
     .subscribe(enlace => {
       this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
       this.array2 = enlace;
-      this.listEnlaces(this.array2);
+      this.filterEnlaces(this.array2);
   });
 
   }
-  listEnlaces(array2: any) {
+  filterEnlaces(array2: any) {
     this.dataSource2 = array2;
     this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
     this.loadingState = false;
@@ -83,17 +86,9 @@ export class ContactBrowserComponent implements OnInit {
   public handlePage(e: any) {
   }
 
-  // public getGender(gender: number): string {
-  //   return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
-  // }
-
   public applyFilter(filterValue: string) {
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    // this.array.filterPredicate = function(data, filter: string): boolean {
-    //   return data.name.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
-    // };
     this.dataSource = this.array;
     this.dataSource = this.dataSource.filter(x => x.dni.toLowerCase() === filterValue);
   }
@@ -153,9 +148,8 @@ export class ContactBrowserComponent implements OnInit {
                 // Success
                 if (data.message) {
                   // TODO: success
-                // this.dialogAux.close('success');
                 dialogRef2.close('success');
-                // TODO: actualizar dataSource2
+                this.loadContacts();
                 this.loadEnlaces();
                 } else {
                   // TODO: error
