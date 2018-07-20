@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Inject, AfterContentInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { IContact } from './../model/contact';
 import { IEnlaceVisitContact } from './../model/enlaceVisitContact';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
@@ -17,7 +17,7 @@ import { IVisit } from './../model/visit';
   templateUrl: './contact-browser.component.html',
   styleUrls: ['./contact-browser.component.scss']
 })
-export class ContactBrowserComponent implements OnInit, AfterContentInit {
+export class ContactBrowserComponent implements OnInit {
 
   contacts: IContact[];
   contact: IContact;
@@ -55,6 +55,7 @@ export class ContactBrowserComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     this.loadingState = true;
     this.motivo = this.data.visitaActiva.motivo;
+    this.loadEnlaces();
     // this.visitaActivaId = this.data.visitaActiva.id;
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
     .subscribe(contacts => {
@@ -62,19 +63,22 @@ export class ContactBrowserComponent implements OnInit, AfterContentInit {
       this.array = contacts;
       this.loadingState = false;
     });
+  }
+
+  loadEnlaces() {
     this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
     .subscribe(enlace => {
       this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
       this.array2 = enlace;
-      this.loadingState = false;
+      this.listEnlaces(this.array2);
   });
-  // TODO: falla this.data.visitaActiva.id
 
   }
-
-  ngAfterContentInit() {
+  listEnlaces(array2: any) {
+    this.dataSource2 = array2;
+    this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
+    this.loadingState = false;
   }
-
 
   public handlePage(e: any) {
   }
@@ -92,8 +96,6 @@ export class ContactBrowserComponent implements OnInit, AfterContentInit {
     // };
     this.dataSource = this.array;
     this.dataSource = this.dataSource.filter(x => x.dni.toLowerCase() === filterValue);
-    this.dataSource2 = this.array2;
-    this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
   }
 
   addContact2Visit (element: any) {
@@ -153,6 +155,8 @@ export class ContactBrowserComponent implements OnInit, AfterContentInit {
                   // TODO: success
                 // this.dialogAux.close('success');
                 dialogRef2.close('success');
+                // TODO: actualizar dataSource2
+                this.loadEnlaces();
                 } else {
                   // TODO: error
                   dialogRef2.close('error');
