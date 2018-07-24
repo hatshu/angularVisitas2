@@ -57,7 +57,7 @@
     </table>
   </div>
   <br/>
-  <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
+  <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Enlace de la visita: </h2>
   <div class="contactlist-container mat-elevation-z8">
     <table mat-table #tableEnlace [dataSource]="dataSource2">
       <ng-container matColumnDef="contactId">
@@ -74,7 +74,17 @@
   </div>
   <br/>
   <br/>
-  <div md-dialog-actions>
+  <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
+  <mat-list>
+    <h1 mat-subheader>Your info</h1>
+    <mat-list-item *ngFor="let stack of nombres">
+      <h2 mat-line>Nombre: <b>{{stack.name}}</b></h2>
+      <p mat-line>Apellidos: <b> {{stack.surname}} </b></p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>
+  <div mat-dialog-actions>
       <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cancelar</button>
+      <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button>
     </div>
 </ng-template>

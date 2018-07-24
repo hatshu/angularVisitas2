@@ -26,8 +26,12 @@ export class ContactBrowserComponent implements OnInit {
   modalTitle: string;
   modalBtnTitle: string;
   length: number;
+  public contacs; any;
   public array: any;
   public array2: any;
+  public nombresAux: any;
+  public visitasAux: any;
+  public nombres: string[];
   public dataSource: any;
   public dataSource2: any;
   public visita: number;
@@ -49,18 +53,54 @@ export class ContactBrowserComponent implements OnInit {
     private _contactService: ContactService,
     private _enlaceService: EnlaceService,
     public dialogAux: MatDialogRef<ContactBrowserComponent>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
     this.loadingState = true;
     this.motivo = this.data.visitaActiva.motivo;
-    this.loadEnlaces();
     this.loadContacts();
+    this.loadEnlaces();
+    this.nombres = this.findNames();
     this.loadingState = false;
-
   }
-  loadContacts() {
+  findNames(): string[] {
+    this.visitasAux = this.array2;
+    if (this.visitasAux !== undefined)  {
+    this.visitasAux = this.visitasAux.filter(x => x.visitId === this.data.visitaActiva.id);
+    // this.nombresAux = this.array;
+    this.visitasAux.forEach((enlaceElement) => {
+      const nombresa: IContact[] = this.loadListContacts();
+      nombresa.forEach(function(personaElement) {
+        if (enlaceElement.contactId === personaElement.id) {
+          let nombre = {};
+          nombre = personaElement.name +  ' ' + personaElement.surname;
+          addNombreToList(nombre);
+         } else {
+          console.log(enlaceElement);
+          console.log(personaElement);
+         }
+      });
+    });
+    return this.nombres;
+   }
+  }
+
+   addNombreToList (nombre: string) {
+    this.nombres.push(nombre);
+  }
+
+  public loadEnlaces() {
+    this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
+    .subscribe(enlace => {
+      this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
+      this.array2 = enlace;
+      this.dataSource2 = this.array2;
+      this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
+      this.loadingState = false;
+     });
+  }
+  public loadContacts() {
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
     .subscribe(contacts => {
     this.dataSource = new MatTableDataSource<IContact>();
@@ -68,24 +108,26 @@ export class ContactBrowserComponent implements OnInit {
     });
   }
 
-  loadEnlaces() {
-    this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
-    .subscribe(enlace => {
-      this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
-      this.array2 = enlace;
-      this.filterEnlaces(this.array2);
-  });
-
+  public loadListContacts(): IContact[] {
+    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+    .subscribe(contacts => {
+    this.dataSource = new MatTableDataSource<IContact>();
+    this.array = contacts;
+    });
+    return this.array;
   }
-  filterEnlaces(array2: any) {
-    this.dataSource2 = array2;
-    this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
-    this.loadingState = false;
-  }
-
-  public handlePage(e: any) {
-  }
-
+  // loadNames(enlaces: IEnlaceVisitContact[], contactos: IContact[]) {
+  //   enlaces.forEach(function(enlaceElement) {
+  //     contactos.forEach(function(contactElement) {
+  //       if (enlaceElement.contactId === contactElement.id) {
+  //         const nombre = contactElement.name +  ' ' + contactElement.surname;
+  //         this.nombres.push(nombre);
+  //       } else {
+  //        console.log (enlaceElement.id);
+  //       }
+  //     });
+  //    });
+  // }
   public applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
