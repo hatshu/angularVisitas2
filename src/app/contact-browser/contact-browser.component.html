@@ -76,10 +76,9 @@
   <br/>
   <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
   <mat-list>
-    <h1 mat-subheader>Your info</h1>
-    <mat-list-item *ngFor="let stack of nombres">
-      <h2 mat-line>Nombre: <b>{{stack.name}}</b></h2>
-      <p mat-line>Apellidos: <b> {{stack.surname}} </b></p>
+    <h1 mat-subheader>VISITANTES</h1>
+    <mat-list-item *ngFor="let stack of nombresFinal">
+      <h2 mat-line>-<b>{{stack}}</b></h2>
     </mat-list-item>
     <mat-divider></mat-divider>
 </mat-list>

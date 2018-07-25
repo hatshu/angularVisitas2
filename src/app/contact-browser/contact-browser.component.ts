@@ -1,23 +1,20 @@
-import { Component, ViewChild, OnInit, Inject } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { IContact } from './../model/contact';
 import { IEnlaceVisitContact } from './../model/enlaceVisitContact';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
-import { ContactformComponent } from '../contactform/contactform.component';
-import { VisitformComponent } from '../visitform/visitform.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { ContactService } from '../services/contact.service';
 import { EnlaceService } from '../services/enlace.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
-import { IVisit } from './../model/visit';
 
 @Component({
   selector: 'app-contact-browser',
   templateUrl: './contact-browser.component.html',
   styleUrls: ['./contact-browser.component.scss']
 })
-export class ContactBrowserComponent implements OnInit {
+export class ContactBrowserComponent implements OnInit, AfterViewInit {
 
   contacts: IContact[];
   contact: IContact;
@@ -31,7 +28,7 @@ export class ContactBrowserComponent implements OnInit {
   public array2: any;
   public nombresAux: any;
   public visitasAux: any;
-  public nombres: string[];
+  public nombresFinal: string[];
   public dataSource: any;
   public dataSource2: any;
   public visita: number;
@@ -61,11 +58,17 @@ export class ContactBrowserComponent implements OnInit {
     this.motivo = this.data.visitaActiva.motivo;
     this.loadContacts();
     this.loadEnlaces();
-    this.nombres = this.findNames();
     this.loadingState = false;
+    console.log('app = ngOnInit');
   }
+  ngAfterViewInit() {
+    this.nombresFinal = this.findNames();
+    console.log('AfterViewInit');
+  }
+
   findNames(): string[] {
     this.visitasAux = this.array2;
+    const nombres: string[] = [];
     if (this.visitasAux !== undefined)  {
     this.visitasAux = this.visitasAux.filter(x => x.visitId === this.data.visitaActiva.id);
     // this.nombresAux = this.array;
@@ -73,22 +76,24 @@ export class ContactBrowserComponent implements OnInit {
       const nombresa: IContact[] = this.loadListContacts();
       nombresa.forEach(function(personaElement) {
         if (enlaceElement.contactId === personaElement.id) {
-          let nombre = {};
+          let nombre = '';
           nombre = personaElement.name +  ' ' + personaElement.surname;
-          addNombreToList(nombre);
+          nombres.push(nombre);
+
          } else {
           console.log(enlaceElement);
           console.log(personaElement);
          }
       });
     });
-    return this.nombres;
+    this.nombresFinal = nombres;
+    return nombres;
    }
   }
 
-   addNombreToList (nombre: string) {
-    this.nombres.push(nombre);
-  }
+  //  addNombreToList (nombre: string) {
+  //   this.nombres.push(nombre);
+  // }
 
   public loadEnlaces() {
     this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
