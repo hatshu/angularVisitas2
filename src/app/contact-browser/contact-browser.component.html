@@ -73,15 +73,15 @@
     </table>
   </div>
   <br/>
-  <br/>
-  <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
-  <mat-list>
-    <h1 mat-subheader>VISITANTES</h1>
-    <mat-list-item *ngFor="let stack of nombresFinal">
-      <h2 mat-line>-<b>{{stack}}</b></h2>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-</mat-list>
+  <div *ngIf="isDataAvailable">
+    <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
+    <mat-list>
+     <mat-list-item *ngFor="let elemento of nombresFinal">
+        <h4 mat-line>-{{elemento}}</h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
   <div mat-dialog-actions>
       <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cancelar</button>
       <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button>
