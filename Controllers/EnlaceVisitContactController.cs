@@ -27,6 +27,27 @@ namespace contact_app.Controllers
         }
 
         [HttpGet("{id}")]
+        [Route("getAllId")]
+        public IEnumerable<string> GetAllId(long id)
+        {
+            var result = new List<string>();
+            // fetch all names for a visit that we want
+            foreach (var itemEnlace in _context.EnlaceVisitContact.ToList())
+            {
+              if (id == itemEnlace.visitId) {
+                foreach (var itemPerson in _context.Contact.ToList())
+                {
+                  if (itemEnlace.contactId == itemPerson.id)
+                  {
+                    result.Add(itemPerson.name+" "+itemPerson.surname);
+                  }
+                }
+              }
+            }
+           return result;
+        }
+
+        [HttpGet("{id}")]
         [Route("getEnlaceVisitContact")]
         public IActionResult GetById(long id)
         {

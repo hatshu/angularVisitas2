@@ -30,6 +30,7 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
   array2: any;
   visitasAux: any;
   nombresFinal: any;
+  pruebaObservable: any;
   contactsFinal: any;
   enlacesFinal: any;
   dataSource: any;
@@ -70,37 +71,43 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
 
   public findNames(): any {
     this.nombresFinal = new MatTableDataSource<INombre>();
-    // this.loadEnlaces();
-    this.visitasAux = this.dataSource2;
-    const nombres: INombre[] = [];
-    if (this.visitasAux !== undefined)  {
-    this.visitasAux.forEach((enlaceElement) => {
-      // this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-      // .subscribe(contacts => {
-      // this.dataSource = new MatTableDataSource<IContact>();
-      // this.array = contacts;
-      // });
-      this.array.forEach(function(personaElement) {
-        if (enlaceElement.contactId === personaElement.id) {
-          let nombre = '';
-          const aux: any = [];
-          nombre = personaElement.name +  ' ' + personaElement.surname;
-          aux.name = nombre;
-          nombres.push(aux);
+  //   // this.nombresFinal = new Observable<INombre[]>();
+  //   // this.loadEnlaces();
+  //   this.visitasAux = this.dataSource2;
+  //   const nombres: INombre[] = [];
+  //   if (this.visitasAux !== undefined)  {
+  //   this.visitasAux.forEach((enlaceElement) => {
+  //     // this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+  //     // .subscribe(contacts => {
+  //     // this.dataSource = new MatTableDataSource<IContact>();
+  //     // this.array = contacts;
+  //     // });
+  //     this.array.forEach(function(personaElement) {
+  //       if (enlaceElement.contactId === personaElement.id) {
+  //         let nombre = '';
+  //         const aux: any = [];
+  //         nombre = personaElement.name +  ' ' + personaElement.surname;
+  //         aux.name = nombre;
+  //         nombres.push(aux);
 
-         } else {
-          // console.log(enlaceElement);
-          // console.log(personaElement);
-         }
-      });
-    });
-    this.nombresFinal = nombres;
-    this.isDataAvailable = true;
-    console.log(this.nombresFinal);
-    return this.nombresFinal;
-   } else {
-    console.log ('Estoy sin datos de nombresFinal');
-   }
+  //        } else {
+  //         // console.log(enlaceElement);
+  //         // console.log(personaElement);
+  //        }
+  //     });
+  //   });
+  //   this.nombresFinal = nombres;
+  //   this.isDataAvailable = true;
+  //   console.log(this.nombresFinal);
+  //   return this.nombresFinal;
+  //  } else {
+  //   console.log ('Estoy sin datos de nombresFinal');
+  //  }
+  this.visita = this.data.visitaActiva.id;
+  this._enlaceService.getAllPersonsName(Global.BASE_USER_ENDPOINTEnlace + 'getAllId' , this.visita)
+   .subscribe (enlace => {
+     this.nombresFinal = enlace;
+  });
   }
 
   public loadEnlaces(): IEnlaceVisitContact {

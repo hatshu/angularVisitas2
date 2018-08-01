@@ -19,6 +19,12 @@ export class EnlaceService {
    getAllEnlaceVisitContact(url: string): Observable <IEnlaceVisitContact[]> {
     return this.http.get <IEnlaceVisitContact[]> (url).pipe(catchError(this.handleError));
 }
+
+   getAllPersonsName(url: string, Id: number): Observable <string[]> {
+    const newurl = `${url}?Id=${Id}`;
+    return this.http.get <string[]> (newurl).pipe(catchError(this.handleError));
+}
+
 // insert new IEnlaceVisitContact details
     addEnlaceVisitContact(url: string, enlaceVisitContact: IEnlaceVisitContact): Observable < any > {
     return this.http.post(url, JSON.stringify(enlaceVisitContact), httpOptions).pipe(catchError(this.handleError));

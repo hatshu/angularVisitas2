@@ -73,7 +73,8 @@
     </table>
   </div>
   <br/>
-  <div *ngIf="isDataAvailable">
+  <!-- <div *ngIf="isDataAvailable"> -->
+      <div >
     <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
     <!-- <mat-list>
      <mat-list-item *ngFor="let elemento of nombresFinal">
@@ -85,7 +86,7 @@
     <table mat-table #tableNombres [dataSource]="nombresFinal">
         <ng-container matColumnDef="nameplussurname">
             <th mat-header-cell *matHeaderCellDef> Nombre y Apellido </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
@@ -95,7 +96,7 @@
   </div>
   <div mat-dialog-actions>
       <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cerrar</button>
-      <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button>
+      <!-- <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button> -->
     </div>
 </ng-template>
 <!-- <script src="contact-browser.component.ts" onload="findNames()"></script> -->
