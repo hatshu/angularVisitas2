@@ -13,6 +13,9 @@ export class EnlaceService {
 
   constructor(private http: HttpClient) { }
    // get all IEnlaceVisitContact data
+//    getAllEnlaceVisitContact(url: string): Observable <IEnlaceVisitContact[]> {
+//     return this.http.get <IEnlaceVisitContact[]> (url).pipe(catchError(this.handleError));
+// }
    getAllEnlaceVisitContact(url: string): Observable <IEnlaceVisitContact[]> {
     return this.http.get <IEnlaceVisitContact[]> (url).pipe(catchError(this.handleError));
 }

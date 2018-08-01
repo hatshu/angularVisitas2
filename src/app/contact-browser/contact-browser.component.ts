@@ -9,6 +9,7 @@ import { EnlaceService } from '../services/enlace.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
 import { INombre } from './../model/nombre';
+import { Observable, throwError} from 'rxjs';
 
 @Component({
   selector: 'app-contact-browser',
@@ -39,7 +40,7 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
   // set columns that will need to show in listing table
   displayedColumns = ['name', 'surname', 'company', 'dni', 'fecha', 'action'];
   displayedColumns2 = ['contactId', 'visitId'];
-  displayedColumns3 = ['nombre'];
+  displayedColumns3 = ['nameplussurname'];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
@@ -56,9 +57,9 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
     this.motivo = this.data.visitaActiva.motivo;
     this.contactsFinal = this.loadListContacts();
     console.log('LOAD CONTACTOS');
-    this.loadEnlaces();
+    this.enlacesFinal = this.loadEnlaces();
     console.log('LOADENLACES');
-    // this.nombresFinal = this.findNames();
+    this.nombresFinal = this.findNames();
     this.loadingState = false;
    }
   // FIN DE ONINIT
@@ -68,20 +69,17 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
   }
 
   public findNames(): any {
-    // this.visitasAux = this.dataSource2;
-    // this.visitasAux = this.dataSource2;
-    // this.nombresFinal = new MatTableDataSource<Iname>();
     this.nombresFinal = new MatTableDataSource<INombre>();
+    // this.loadEnlaces();
     this.visitasAux = this.dataSource2;
     const nombres: INombre[] = [];
     if (this.visitasAux !== undefined)  {
-    this.visitasAux = this.visitasAux.filter(x => x.visitId === this.data.visitaActiva.id);
     this.visitasAux.forEach((enlaceElement) => {
-      this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-      .subscribe(contacts => {
-      this.dataSource = new MatTableDataSource<IContact>();
-      this.array = contacts;
-      });
+      // this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+      // .subscribe(contacts => {
+      // this.dataSource = new MatTableDataSource<IContact>();
+      // this.array = contacts;
+      // });
       this.array.forEach(function(personaElement) {
         if (enlaceElement.contactId === personaElement.id) {
           let nombre = '';
@@ -91,20 +89,21 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
           nombres.push(aux);
 
          } else {
-          console.log(enlaceElement);
-          console.log(personaElement);
+          // console.log(enlaceElement);
+          // console.log(personaElement);
          }
       });
     });
     this.nombresFinal = nombres;
     this.isDataAvailable = true;
+    console.log(this.nombresFinal);
     return this.nombresFinal;
    } else {
     console.log ('Estoy sin datos de nombresFinal');
    }
   }
 
-  public loadEnlaces() {
+  public loadEnlaces(): IEnlaceVisitContact {
     this._enlaceService.getAllEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'getAllEnlaceVisitContact')
     .subscribe(enlace => {
       this.dataSource2 = new MatTableDataSource<IEnlaceVisitContact>();
@@ -112,15 +111,14 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
       this.dataSource2 = this.array2;
       this.dataSource2 = this.dataSource2.filter(x => x.visitId === this.data.visitaActiva.id);
      });
-
+     // this.dataSource2 = this.loadEnlaces();
+     console.log(Response);
+     console.log('dataSource2');
+     console.log(this.dataSource2);
+     return this.dataSource2;
   }
 
   public loadListContacts(): IContact[] {
-    // this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-    // .subscribe(contacts => {
-    // this.dataSource = new MatTableDataSource<IContact>();
-    // this.array = contacts;
-    // });
     let _contactos: Array<IContact> = [];
     this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
     .subscribe(contacts => {
@@ -128,6 +126,7 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
     this.array = contacts;
     _contactos = contacts;
     });
+    console.log('_contactos');
     console.log(_contactos);
     return _contactos;
   }
@@ -166,6 +165,10 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
                 this.contactsFinal = this.loadListContacts();
                 this.loadEnlaces();
                 this.nombresFinal = this.findNames();
+                console.log('add nueva persona a la visita');
+                console.log(this.contactsFinal);
+                console.log(this.dataSource2);
+                console.log(this.nombresFinal);
                 } else {
                   // TODO: error
                   dialogRef2.close('error');
