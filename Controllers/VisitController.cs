@@ -24,9 +24,36 @@ namespace contact_app.Controllers
         public IEnumerable<Visit> GetAll()
         {
             // fetch all Visit records
-            IEnumerable<Visit> listilla;
-            listilla = _context.Visit.ToList();
-            return listilla;
+            IEnumerable<Visit> visitas;
+            visitas = _context.Visit.ToList();
+            return visitas;
+        }
+
+        [HttpGet("{id}")]
+        [Route("getAllVisitPerson")]
+        public List<Visit> getAllVisitPerson(long id)
+        {
+            // fetch all Visit records
+            IEnumerable<Visit> visitas;
+            IEnumerable<EnlaceVisitContact> enlaces;
+            List<Visit> list = new List<Visit>();
+            visitas = _context.Visit.ToList();
+            enlaces = _context.EnlaceVisitContact.ToList();
+            foreach (var itemEnlace in enlaces)
+            {
+              if (id == itemEnlace.contactId)
+              {
+                foreach (var itemVisita in visitas)
+                {
+                  if (itemVisita.id == itemEnlace.visitId)
+                  {
+                    //TODO : AQUI PETA
+                    list.Add(itemVisita);
+                  }
+                }
+              }
+            }
+            return list;
         }
 
         [HttpGet("{id}")]

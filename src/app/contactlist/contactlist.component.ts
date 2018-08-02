@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { MatDialog, Sort } from '@angular/material';
 import { ContactformComponent } from '../contactform/contactform.component';
+import { VisitlistforPersonComponent } from '../visitlistfor-person/visitlistfor-person.component';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
@@ -26,6 +27,7 @@ export class ContactlistComponent implements OnInit {
   public totalSize = 0;
   public array: any;
   public dataSource: any;
+  public contactoActivo: IContact;
 
   // set columns that will need to show in listing table
   // displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
@@ -54,6 +56,36 @@ export class ContactlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result === 'success') {
+        this.loadingState = true;
+        this.loadContacts();
+        switch (this.dbops) {
+          case DBOperation.create:
+            this.showMessage('Data successfully added.');
+            break;
+          case DBOperation.update:
+            this.showMessage('Data successfully updated.');
+            break;
+          case DBOperation.delete:
+            this.showMessage('Data successfully deleted.');
+            break;
+        }
+      } else if (result === 'error') {
+        this.showMessage('There is some issue in saving records, please contact to system administrator!');
+      } else {
+       // this.showMessage('Please try again, something went wrong');
+      }
+    });
+  }
+  seeVisits(contact: IContact): void {
+    const dialogRef2 = this.dialog.open(VisitlistforPersonComponent, {
+      width: '800px',
+      maxHeight: '700px',
+      data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, contactoActivo: contact }
+    });
+
+    dialogRef2.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result === 'success') {
         this.loadingState = true;

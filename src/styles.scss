@@ -74,3 +74,15 @@ h2, h3 {
      width: auto;
      height: auto !important; /* needs to be important because md-card also sets it that way */
   }
+  .titleicon {
+    position: relative;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align:center;
+}
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}

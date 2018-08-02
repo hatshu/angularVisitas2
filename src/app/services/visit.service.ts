@@ -18,6 +18,12 @@ export class VisitService {
     addVisit(url: string, visit: IVisit): Observable < any > {
     return this.http.post(url, JSON.stringify(visit), httpOptions).pipe(catchError(this.handleError));
 }
+// get all visit data for Person
+getAllVisitPerson(url: string, Id: number): Observable <IVisit[]> {
+  const newurl = `${url}?Id=${Id}`;
+ return this.http.get <IVisit[]> (newurl).pipe(catchError(this.handleError));
+}
+
 // update visit details
     updateVisit(url: string, Id: number, visit: IVisit): Observable < any > {
     const newurl = `${url}?Id=${Id}`;

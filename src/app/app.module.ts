@@ -17,6 +17,7 @@ import { VisitlistComponent } from './visitlist/visitlist.component';
 import { VisitformComponent } from './visitform/visitform.component';
 import { ContactBrowserComponent } from './contact-browser/contact-browser.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-person.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,12 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     VisitlistComponent,
     VisitformComponent,
     ContactBrowserComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    VisitlistforPersonComponent
   ],
   entryComponents: [
-  ConfirmationDialogComponent
+  ConfirmationDialogComponent,
+  VisitlistforPersonComponent
  ],
   imports: [
     BrowserModule,
