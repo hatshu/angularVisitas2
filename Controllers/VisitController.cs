@@ -47,7 +47,6 @@ namespace contact_app.Controllers
                 {
                   if (itemVisita.id == itemEnlace.visitId)
                   {
-                    //TODO : AQUI PETA
                     list.Add(itemVisita);
                   }
                 }
