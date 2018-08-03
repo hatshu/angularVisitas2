@@ -78,13 +78,16 @@ export class ContactlistComponent implements OnInit {
       }
     });
   }
+  openseeVisits (id: number) {
+    this.contactoActivo = this.dataSource.filter(x => x.id === id)[0];
+    this.seeVisits(this.contactoActivo);
+  }
   seeVisits(contact: IContact): void {
     const dialogRef2 = this.dialog.open(VisitlistforPersonComponent, {
       width: '800px',
       maxHeight: '700px',
       data: { dbops: this.dbops, modalTitle: this.modalTitle, modalBtnTitle: this.modalBtnTitle, contactoActivo: contact }
     });
-
     dialogRef2.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result === 'success') {
