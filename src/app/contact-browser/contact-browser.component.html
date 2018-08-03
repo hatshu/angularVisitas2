@@ -2,7 +2,11 @@
   <mat-spinner></mat-spinner>
 </div>
 <ng-template class="contactlist" #contactlist>
-  <h2><mat-icon class="example-icon">search</mat-icon>Buscar para la visita con motivo: {{motivo}} </h2>
+  <h2>
+      <img matCardAvatar src="assets/lupa.svg">
+    <!-- <mat-icon class="example-icon">search</mat-icon> -->
+    Buscar para la visita con motivo: {{motivo}}
+  </h2>
   <div>
     <mat-form-field appearance="outline">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar por ID / PASSPORT / DNI">
@@ -75,7 +79,10 @@
   <br/> -->
   <!-- <div *ngIf="isDataAvailable"> -->
       <div >
-    <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Integrantes de la visita: </h2>
+    <h2>
+      <!-- <mat-icon class="example-icon">how_to_reg</mat-icon> -->
+      <img matCardAvatar src="assets/trabajoA.svg">
+      Integrantes de la visita: </h2>
     <!-- <mat-list>
      <mat-list-item *ngFor="let elemento of nombresFinal">
         <h4 mat-line>- {{elemento.name}}</h4>

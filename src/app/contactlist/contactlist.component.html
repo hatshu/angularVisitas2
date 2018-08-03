@@ -2,7 +2,10 @@
   <mat-spinner></mat-spinner>
   </div>
   <ng-template class="contactlist" #contactlist>
-      <h2 align="left"> <mat-icon class="example-icon">people</mat-icon>Listado de Visitantes</h2>
+      <h2 align="center">
+          <img matCardAvatar src="assets/trabajoA.svg">
+        <!-- <mat-icon class="example-icon">people</mat-icon> -->
+        Listado de Visitantes</h2>
       <div class="contactlist-container mat-elevation-z8">
       <div><button title="Create" mat-raised-button color="accent" (click)="addContact()">Create</button></div>
       <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortDirection="desc">
