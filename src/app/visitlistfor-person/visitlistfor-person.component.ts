@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatDialogRef } from '@angular/material';
 import { MatDialog, MatSort, MAT_DIALOG_DATA } from '@angular/material';
 import { VisitService } from '../services/visit.service';
 import { IVisit } from '../model/visit';
@@ -23,8 +23,7 @@ export class VisitlistforPersonComponent implements OnInit {
   dbops: DBOperation;
   modalTitle: string;
   modalBtnTitle: string;
-  @ViewChild( MatPaginator ) paginator: MatPaginator;
-  @ViewChild( MatSort) sort: MatSort;
+  @ViewChild (MatSort) sort: MatSort;
   dataSource: any;
   contactoId: number;
   nameAndSurname: string;
@@ -36,7 +35,9 @@ export class VisitlistforPersonComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
-    private _visitService: VisitService) { }
+    private _visitService: VisitService,
+    public dialogAux: MatDialogRef<VisitlistforPersonComponent>,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadingState = true;

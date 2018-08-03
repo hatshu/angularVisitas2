@@ -43,4 +43,8 @@
         [pageIndex]="currentPage" (page)="pageEvent = handlePage ($event)">
         </mat-paginator> -->
       </div>
+      <div mat-dialog-actions>
+          <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cerrar</button>
+          <!-- <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button> -->
+        </div>
     </ng-template>
