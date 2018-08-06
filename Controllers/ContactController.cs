@@ -28,6 +28,15 @@ namespace contact_app.Controllers
         }
 
         [HttpGet("{id}")]
+        [Route("getIdByDNI")]
+        public long getIdByDNI(string id)
+        {
+          // filter contact records by contact id
+          var item = _context.Contact.FirstOrDefault(t => t.dni == id);
+          return (long)item.id;
+        }
+
+        [HttpGet("{id}")]
         [Route("getContact")]
         public IActionResult GetById(long id)
         {

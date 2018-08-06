@@ -114,7 +114,8 @@ export class ContactformComponent implements OnInit {
           data => {
             // Success
             if (data.message) {
-              this.dialogRef.close('success');
+              // this.dialogRef.close('success');
+              this.dialogRef.close(contactData.dni);
             } else {
               this.dialogRef.close('error');
             }
