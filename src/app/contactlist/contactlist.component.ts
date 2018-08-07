@@ -57,7 +57,7 @@ export class ContactlistComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if (result === 'success') {
+      if (result === 'success' || result > 0) {
         this.loadingState = true;
         this.loadContacts();
         switch (this.dbops) {
@@ -166,7 +166,7 @@ private iterator() {
   }
   showMessage(msg: string) {
     this.snackBar.open(msg, '', {
-      duration: 3000
+      duration: 6000
     });
   }
 

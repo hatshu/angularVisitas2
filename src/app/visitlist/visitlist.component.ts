@@ -200,7 +200,7 @@ export class VisitlistComponent implements OnInit {
   }
   showMessage(msg: string) {
     this.snackBar.open(msg, '', {
-      duration: 3000
+      duration: 6000
     });
   }
 }
