@@ -139,6 +139,7 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
                 if (data.message) {
                   // TODO: success
                 dialogRef2.close('success');
+                this.showMessage('Data successfully added.');
                 this.loadListContacts();
                 this.loadEnlaces();
                 this.findNames();
@@ -181,9 +182,12 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
                 this.loadListContacts();
                 this.loadEnlaces();
                 this.findNames();
+                this.showMessage('Data successfully added.');
                 }
             });
           }
+      } else if (result === 'error') {
+        this.showMessage('There is some issue in saving records, please contact to system administrator!');
       }
     });
   }
@@ -196,7 +200,7 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
   }
   showMessage(msg: string) {
     this.snackBar.open(msg, '', {
-      duration: 3000
+      duration: 6000
     });
   }
   mapDateData(enlace: IEnlaceVisitContact): IEnlaceVisitContact {
