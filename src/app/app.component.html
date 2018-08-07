@@ -1,0 +1,41 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="alternative">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+
+    <a routerLink="home"  href="home" >
+        <span>  <img src="assets/fadawhite.png"/>&nbsp;</span>
+        <span>  <img src="assets/catecwhite.png"/>&nbsp; &nbsp;</span>
+    </a>
+      <!-- <button mat-raised-button>Action</button> -->
+      <!-- <mat-icon class="example-icon">favorites</mat-icon> -->
+<!--
+      <button mat-button [matMenuTriggerFor]="menu">Menu Contactos</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu> -->
+       <!-- <button mat-raised-button color="primary">Item 2</button> -->
+       <!-- <a  routerLink="home"  href="home" > <mat-icon class="example-icon">home</mat-icon></a> -->
+      <button title="Contactos" mat-raised-button color="accent"><a class="a2" routerLink="contaclist"  href="contaclist">Lista Contactos</a></button>
+      <button title="Visitas" mat-raised-button color="accent"><a class="a2" routerLink="visitlist"  href="contaclist">Lista Visitas</a></button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="Contactos">Contactos</button>
+  <button mat-menu-item [matMenuTriggerFor]="Visitas">Visitas</button>
+</mat-menu>
+
+<mat-menu #Contactos="matMenu">
+  <button mat-menu-item><a routerLink="contaclist"  href="contaclist">Listado de contactos</a></button>
+</mat-menu>
+
+<mat-menu #Visitas="matMenu">
+  <button mat-menu-item><a routerLink="visitlist" href="visitlist">Listado de visitas</a></button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="menu"><mat-icon class="example-icon">menu </mat-icon>Menu</button>
+<span class="example-fill-remaining-space"></span>
+    <a  class="a2" routerLink="home"  href="home" >Libro de Visitas de CATEC</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>

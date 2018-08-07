@@ -1,0 +1,9 @@
+<h1 md-dialog-title>ATENCION</h1>
+<br/>
+<div md-dialog-content>{{confirmMessage}}</div>
+<br/>
+<br/>
+<div md-dialog-actions>
+  <button title="Si" mat-raised-button color="primary" (click)="dialogRef.close(true)">Confirm</button> &nbsp;&nbsp;
+  <button title="No"  mat-raised-button color="primary" (click)="dialogRef.close(false)">Cancelar</button>
+</div>

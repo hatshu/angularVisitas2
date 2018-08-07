@@ -1,0 +1,116 @@
+<div class="spinner" *ngIf="loadingState; else contactlist">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template class="contactlist" #contactlist>
+  <h1>Visita con motivo: {{motivo}}</h1>
+  <h2>
+      <img matCardAvatar src="assets/lupa.svg">
+    <!-- <mat-icon class="example-icon">search</mat-icon> -->
+    Buscar persona ya registrada en CATEC:
+  </h2>
+  <div>
+    <mat-form-field appearance="outline">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar por ID / PASSPORT / DNI">
+    </mat-form-field>
+  </div>
+  <h2>
+      <img matCardAvatar src="assets/pluma.svg">
+    <!-- <mat-icon class="example-icon">search</mat-icon> -->
+    Alta nuevo usuario: <button button title="Open popup" mat-raised-button color="primary" (click)="addContact()"><mat-icon class="example-icon">add</mat-icon></button>
+  </h2>
+
+  <div class="contactlist-container mat-elevation-z8">
+    <table mat-table #table [dataSource]="dataSource">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="surname">
+        <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+        <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+      </ng-container>
+
+      <!-- Gender Column -->
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef> ID / PASSPORT / DNI </th>
+        <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+      </ng-container>
+
+      <!-- Gender Column -->
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef> Empresa </th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container>
+
+      <!-- Birth Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd-MM-yyyy' }} </td>
+      </ng-container>
+
+      <!-- Technology Column -->
+      <!-- <ng-container matColumnDef="techno">
+          <th mat-header-cell *matHeaderCellDef> Technology </th>
+          <td mat-cell *matCellDef="let element"> {{element.techno}} </td>
+        </ng-container> -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <!-- <button title="Add 2 Visit" mat-raised-button color="primary" (click)="addContact2Visit(element.id)"><mat-icon class="example-icon">add_circle</mat-icon></button>&nbsp;&nbsp; -->
+          <button title="Open popup" mat-raised-button color="primary" (click)="openConfirmationDialog(element)"><mat-icon class="example-icon">add</mat-icon></button>
+        </td>
+      </ng-container>
+      <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <br/>
+  <!-- <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Enlace de la visita: </h2>
+  <div class="contactlist-container mat-elevation-z8">
+    <table mat-table #tableEnlace [dataSource]="dataSource2">
+      <ng-container matColumnDef="contactId">
+        <th mat-header-cell *matHeaderCellDef> contactId </th>
+        <td mat-cell *matCellDef="let element"> {{element.contactId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="visitId">
+        <th mat-header-cell *matHeaderCellDef> visitId </th>
+        <td mat-cell *matCellDef="let element"> {{element.visitId}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+    </table>
+  </div>
+  <br/> -->
+  <!-- <div *ngIf="isDataAvailable"> -->
+      <div >
+    <h2>
+      <!-- <mat-icon class="example-icon">how_to_reg</mat-icon> -->
+      <img matCardAvatar src="assets/trabajoA.svg">
+      Integrantes de la visita: </h2>
+    <!-- <mat-list>
+     <mat-list-item *ngFor="let elemento of nombresFinal">
+        <h4 mat-line>- {{elemento.name}}</h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list> -->
+    <div class="contactlist-container mat-elevation-z8">
+    <table mat-table #tableNombres [dataSource]="nombresFinal">
+        <ng-container matColumnDef="nameplussurname">
+            <th mat-header-cell *matHeaderCellDef> Nombre y Apellido </th>
+            <td mat-cell *matCellDef="let element"> {{element}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+  </table>
+  </div>
+
+  </div>
+  <div mat-dialog-actions>
+      <button title="No"  mat-raised-button color="primary" (click)="dialogAux.close()">Cerrar</button>
+      <!-- <button title="Ver Visitantes"  mat-raised-button color="primary" (click)="findNames()">Ver Visitantes</button> -->
+    </div>
+</ng-template>
+<!-- <script src="contact-browser.component.ts" onload="findNames()"></script> -->
