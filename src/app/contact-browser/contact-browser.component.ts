@@ -91,18 +91,31 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
     });
   }
 
-  public findIdByDNI(dni: number) {
-    this.auxID = this._contactService.getIdByDNI(Global.BASE_USER_ENDPOINT + 'getIdByDNI', dni)
-    .subscribe(contacto => {
-    this.auxID = contacto;
-    return contacto;
-    });
-  }
+  // public findIdByDNI(dni: number): number {
+  //   let idPerson;
+  //   this._contactService.getIdByDNI(Global.BASE_USER_ENDPOINT + 'getIdByDNI', dni)
+  //   .subscribe(contacto => {
+  //   idPerson = contacto;
+  //   });
+    //   this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+    //   .subscribe(contacts => {
+    //   this.contactId = contacts;
+    //   this.contactId.forEach(function(contact) {
+    //     if (contact.dni === dni) {
+    //       idPerson = contact.id ;
+    //       this.auxID = idPerson;
+    //     }
+    //   });
+    // });
+    // TODO: NO ESTA ACTUALIZADA LA LISTA DE CONTACTOS CON EL ULTIMO QUE SE METE :()
+
+  //   return idPerson;
+  // }
 
   public applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource = this.array;
+    this.dataSource = this.contactId;
     this.dataSource = this.dataSource.filter(x => x.dni.toLowerCase() === filterValue);
   }
 
@@ -153,16 +166,28 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result !== 'error') {
-        this.contactoDNI = result;
-        this.findIdByDNI(result);
-        // TODO:  tenemos el dni tenemos que sacar el id...
-        this.loadingState = true;
         this.loadListContacts();
+        console.log(this.contactId);
+        this.contactoDNI = result;
+        // let idResult;
+        // idResult = this.findIdByDNI(result);
+        // TODO:  tenemos el dni tenemos que sacar el id...
+        let idPerson;
+        this._contactService.getIdByDNI(Global.BASE_USER_ENDPOINT + 'getIdByDNI', this.contactoDNI)
+        .subscribe(contacto => {
+        idPerson = contacto;
+        });
+
+        // this.loadingState = true;
+        // this.loadListContacts();
+        // this.loadEnlaces();
+        // this.findNames();
        const enlaceData: IEnlaceVisitContact = <IEnlaceVisitContact> {
           // ! HERE ERROR ID TENEMOS QUE SACAR EL ID DEL QUE HEMOS DADO DE ALTA
-          contactId: this.auxID,
+          contactId: idPerson,
           visitId: this.data.visitaActiva.id
           };
+          if (enlaceData.contactId !== undefined) {
           this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
             data => {
                 // Success
@@ -172,30 +197,14 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
                 this.loadListContacts();
                 this.loadEnlaces();
                 this.findNames();
-                this.loadingState = false;
-                } else {
-                  // TODO: error
-                  // dialogRef.close('error');
-
+                // this.loadingState = false;
                 }
-              },
-              error => {
-                // TODO: error
-                dialogRef.close('error');
-              }
-            );
-        switch (this.dbops) {
-          case DBOperation.create:
-            this.showMessage('Data successfully added.');
-            break;
-        }
-      } else if (result === 'error') {
-        this.showMessage('There is some issue in saving records, please contact to system administrator!');
-      } else {
-       // this.showMessage('Please try again, something went wrong');
+            });
+          }
       }
     });
   }
+
   addContact() {
     this.dbops = DBOperation.create;
     this.modalTitle = 'Add New Contact';
