@@ -16,7 +16,7 @@ getAllContact(url: string): Observable <IContact[]> {
     return this.http.get <IContact[]> (url).pipe(catchError(this.handleError));
 }
 
-getIdByDNI(url: string, Id: number): Observable <number> {
+getIdByDNI(url: string, Id: string): Observable <number> {
   const newurl = `${url}?Id=${Id}`;
   return this.http.get <number> (newurl).pipe(catchError(this.handleError));
 }
