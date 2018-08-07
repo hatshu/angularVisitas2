@@ -10,7 +10,7 @@ S F:\angularTuto\contact-app> ng --version
  /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
                 |___/
 
-
+FOR CLIENT APP
 Angular CLI: 6.0.3
 Node: 8.9.4
 OS: win32 x64
@@ -33,6 +33,10 @@ Package                           Version
 rxjs                              6.2.0
 typescript                        2.7.2
 webpack                           4.8.3
+
+FOR SERVER APP
+PS F:\angularTuto\contact-app> dotnet --version
+2.1.105
 
 ## Development server
 
