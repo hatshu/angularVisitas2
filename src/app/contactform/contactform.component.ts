@@ -115,7 +115,13 @@ export class ContactformComponent implements OnInit {
             // Success
             if (data.message) {
               // this.dialogRef.close('success');
-              this.dialogRef.close(contactData.dni);
+              let idPerson;
+              this._contactService.getIdByDNI(Global.BASE_USER_ENDPOINT + 'getIdByDNI', contactData.dni)
+              .subscribe(contacto => {
+              idPerson = contacto;
+              this.dialogRef.close(idPerson);
+              });
+              // this.dialogRef.close(contactData.dni);
             } else {
               this.dialogRef.close('error');
             }

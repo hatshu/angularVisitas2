@@ -167,24 +167,8 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
       console.log('The dialog was closed');
       if (result !== 'error') {
         this.loadListContacts();
-        console.log(this.contactId);
-        this.contactoDNI = result;
-        // let idResult;
-        // idResult = this.findIdByDNI(result);
-        // TODO:  tenemos el dni tenemos que sacar el id...
-        let idPerson;
-        this._contactService.getIdByDNI(Global.BASE_USER_ENDPOINT + 'getIdByDNI', this.contactoDNI)
-        .subscribe(contacto => {
-        idPerson = contacto;
-        });
-
-        // this.loadingState = true;
-        // this.loadListContacts();
-        // this.loadEnlaces();
-        // this.findNames();
        const enlaceData: IEnlaceVisitContact = <IEnlaceVisitContact> {
-          // ! HERE ERROR ID TENEMOS QUE SACAR EL ID DEL QUE HEMOS DADO DE ALTA
-          contactId: idPerson,
+          contactId: result,
           visitId: this.data.visitaActiva.id
           };
           if (enlaceData.contactId !== undefined) {
@@ -197,7 +181,6 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
                 this.loadListContacts();
                 this.loadEnlaces();
                 this.findNames();
-                // this.loadingState = false;
                 }
             });
           }

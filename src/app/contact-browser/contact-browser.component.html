@@ -13,11 +13,7 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar por ID / PASSPORT / DNI">
     </mat-form-field>
   </div>
-  <h2>
-      <img matCardAvatar src="assets/pluma.svg">
-    <!-- <mat-icon class="example-icon">search</mat-icon> -->
-    Alta nuevo usuario: <button button title="Open popup" mat-raised-button color="primary" (click)="addContact()"><mat-icon class="example-icon">add</mat-icon></button>
-  </h2>
+
 
   <div class="contactlist-container mat-elevation-z8">
     <table mat-table #table [dataSource]="dataSource">
@@ -68,6 +64,11 @@
     </table>
   </div>
   <br/>
+  <h2>
+      <img matCardAvatar src="assets/pluma.svg">
+    <!-- <mat-icon class="example-icon">search</mat-icon> -->
+    Alta nuevo usuario: <button button title="Open popup" mat-raised-button color="primary" (click)="addContact()"><mat-icon class="example-icon">add</mat-icon></button>
+  </h2>
   <!-- <h2><mat-icon class="example-icon">how_to_reg</mat-icon>Enlace de la visita: </h2>
   <div class="contactlist-container mat-elevation-z8">
     <table mat-table #tableEnlace [dataSource]="dataSource2">
