@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 
 import { MatDialog,
          MatDialogRef,
@@ -13,6 +13,7 @@ import { IContact } from '../model/contact';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
+import { dirname } from 'path';
 
 @Component({
   selector: 'app-contactform',
@@ -29,8 +30,8 @@ export class ContactformComponent implements OnInit {
   // modalBtnTitle: string;
   // listFilter: string;
   // selectedOption: string;
-  // contact: IContact;
-
+  contact: IContact;
+  array: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,13 +41,17 @@ export class ContactformComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+    .subscribe(contacts => {
+      this.array = contacts;
+    });
     // built contact form
     this.contactFrm = this.fb.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       surname: ['', [Validators.required]],
       company: [''],
-      dni: ['' , [Validators.required]],
+      dni: ['' , [Validators.required, this.isDuplicate]],
       fecha: ['']
     });
 
@@ -102,7 +107,8 @@ export class ContactformComponent implements OnInit {
     //   required: 'surname is required.'
     // },
     dni: {
-      required: 'dni is required.'
+      required: 'dni is required.',
+      isDuplicate: 'dni is already on database'
     },
   };
   onSubmit(formData: any) {
@@ -174,4 +180,58 @@ export class ContactformComponent implements OnInit {
   mapDateData(contact: IContact): IContact {
     return contact;
   }
+  isDuplicate(control: AbstractControl, array: IContact[]): { [key: string]: boolean } | null {
+
+    let duplicate = false;
+
+    if (array !== undefined) {
+    array.forEach (function(contact) {
+      if (contact.dni === control.value ) {
+        duplicate = true;
+      }
+    });
+  }
+    // let duplicate = false;
+    // if (control.value === 'A') {
+    //   duplicate = true;
+    // }
+    if (duplicate) {
+        return { 'isDuplicate': true };
+    }
+    return null;
 }
+
+// prueba(valor: string): boolean {
+//  let result = false;
+//  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', valor).subscribe(contacto => {
+//   result = contacto;
+//     });
+// return result;
+// }
+
+}
+
+ // CUSTON VALIDATION
+  // const dni = control.value;
+  // let duplicate = false;
+  // this.array.forEach (function(contact) {
+  //   if (contact.dni === dni ) {
+  //     duplicate = true;
+  //   }
+  //   function isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
+
+  //     // let duplicate = false;
+  //     // this.array.forEach (function(contact) {
+  //     //   if (contact.dni === control.value ) {
+  //     //     duplicate = true;
+  //     //   }
+  //     // });
+  //     let duplicate = false;
+  //     if (control.value === 'A') {
+  //       duplicate = true;
+  //     }
+  //     if (control.value !== undefined && (isNaN(control.value) || duplicate)) {
+  //         return { 'isDuplicate': true };
+  //     }
+  //     return null;
+  // }
