@@ -17,8 +17,8 @@ export class DniValidator  {
 
   // constructor (public _contactService: ContactService) { }
 
-  static isDuplicate (fc: FormControl) {
-    if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
+  static isDuplicate (control: AbstractControl) {
+    if (control.value === 'A') {
       return ({isDuplicate: true});
     } else {
       return (null);
