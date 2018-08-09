@@ -5,6 +5,8 @@ import { Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IContact } from '../model/contact';
 const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+import { map } from 'rxjs/operators';
+
 
 @Injectable()
 export class ContactService {
@@ -24,6 +26,22 @@ getIdByDNI(url: string, Id: string): Observable <number> {
 findDni(url: string, Id: string): Observable <boolean> {
   const newurl = `${url}?Id=${Id}`;
   return this.http.get <boolean> (newurl).pipe(catchError(this.handleError));
+}
+
+validateUsername(Id: string): Promise<any> {
+  // return this.http.get('api/contact/auth/validate-username/' + username).pipe(map(res => res.json()));
+  const url = 'api/contact/validateUsername/';
+  const newurl = `${url}?Id=${Id}`;
+  return new Promise((resolve, reject) => {
+    this.http.get(newurl).subscribe(
+      response => {
+        resolve(response);
+      },
+      exception => {
+        reject(exception);
+      }
+    );
+  });
 }
 
 // getData(url, startIndex, pageSize): Observable<IContact[]> {

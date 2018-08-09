@@ -13,7 +13,7 @@ import { IContact } from '../model/contact';
 import { ContactService } from '../services/contact.service';
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
-import { dirname } from 'path';
+import { DniValidator } from './dni.validator';
 
 @Component({
   selector: 'app-contactform',
@@ -36,7 +36,7 @@ export class ContactformComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private _contactService: ContactService,
+    public _contactService: ContactService,
     public dialogRef: MatDialogRef<ContactlistComponent>
   ) { }
 
@@ -51,7 +51,7 @@ export class ContactformComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       surname: ['', [Validators.required]],
       company: [''],
-      dni: ['' , [Validators.required, this.isDuplicate]],
+      dni: ['' , [Validators.required, DniValidator.isDuplicate]],
       fecha: ['']
     });
 
@@ -180,34 +180,32 @@ export class ContactformComponent implements OnInit {
   mapDateData(contact: IContact): IContact {
     return contact;
   }
-  isDuplicate(control: AbstractControl, array: IContact[]): { [key: string]: boolean } | null {
+  isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
 
+    // let duplicate = false;
+    // this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe(contacto => {
+    // duplicate = contacto;
+    // });
+
+    // if (this.array !== undefined) {
+    // this.array.forEach (function(contact) {
+    //   if (contact.dni === control.value ) {
+    //     duplicate = true;
+    //   }
+    // });
+    // }
     let duplicate = false;
 
-    if (array !== undefined) {
-    array.forEach (function(contact) {
-      if (contact.dni === control.value ) {
-        duplicate = true;
-      }
-    });
-  }
-    // let duplicate = false;
-    // if (control.value === 'A') {
-    //   duplicate = true;
-    // }
+
+    if (control.value === 'G') {
+      duplicate = true;
+    }
     if (duplicate) {
         return { 'isDuplicate': true };
     }
     return null;
 }
 
-// prueba(valor: string): boolean {
-//  let result = false;
-//  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', valor).subscribe(contacto => {
-//   result = contacto;
-//     });
-// return result;
-// }
 
 }
 
