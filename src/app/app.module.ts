@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppMaterialModule } from './app.material.module';
 import { ContactformComponent } from './contactform/contactform.component';
+import { DniValidator } from './contactform/dni.validator';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { ContactService } from './services/contact.service';
 import { EnlaceService } from './services/enlace.service';
@@ -48,7 +49,7 @@ import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-
   providers: [
     ContactService,
     VisitService,
-    EnlaceService
+    EnlaceService,
   ],
   bootstrap: [AppComponent]
 })
