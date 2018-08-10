@@ -41,9 +41,12 @@ namespace contact_app.Controllers
         [Route("findDni")]
         public bool findDni(string id)
         {
-          // filter contact records by contact id
+          // filter if dni is on database
           var item = _context.Contact.FirstOrDefault(t => t.dni == id);
-          return true;
+          if (item != null && item.dni != null) {
+           return true;
+          }
+          return false;
         }
 
         [HttpGet("{id}")]

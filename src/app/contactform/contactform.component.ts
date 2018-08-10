@@ -33,7 +33,7 @@ export class ContactformComponent implements OnInit {
   contact: IContact;
   array: any;
   errorMessage: any;
-
+  duplicate: boolean;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -42,11 +42,9 @@ export class ContactformComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._contactService.getAllContactPromise(Global.BASE_USER_ENDPOINT + 'getAllContact')
-    .then(array => this.array = array,
-      error => this.errorMessage = <any>error
-    );
-    console.log(this.array);
+    this.duplicate = false;
+    console.log('estoy en oninit');
+    console.log(this.duplicate);
     // built contact form
     this.contactFrm = this.fb.group({
       id: [''],
@@ -185,12 +183,12 @@ export class ContactformComponent implements OnInit {
     return contact;
   }
   isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
-    let duplicate = false;
+    // let duplicate = false;
     this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe(contacto => {
-    duplicate = contacto;
-    console.log(duplicate);
+      this.duplicate = contacto;
+      console.log('dentro del servicio duplicate es ' + this.duplicate + '' );
     });
-    console.log(duplicate);
+    console.log('fuera del servicio duplicate es ' + this.duplicate + '');
     // if (this.array !== undefined) {
     // this.array.forEach (function(contact) {
     //   if (contact.dni === control.value ) {
@@ -201,8 +199,8 @@ export class ContactformComponent implements OnInit {
     // if (control.value === 'G') {
     //   duplicate = true;
     // }
-    if (duplicate) {
-        return { 'isDuplicate': true };
+    if (this.duplicate) {
+        return { isDuplicate: true };
     }
     return null;
 }
