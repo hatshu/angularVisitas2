@@ -32,6 +32,7 @@ export class ContactformComponent implements OnInit {
   // selectedOption: string;
   contact: IContact;
   array: any;
+  errorMessage: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,17 +42,20 @@ export class ContactformComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-    .subscribe(contacts => {
-      this.array = contacts;
-    });
+    this._contactService.getAllContactPromise(Global.BASE_USER_ENDPOINT + 'getAllContact')
+    .then(array => this.array = array,
+      error => this.errorMessage = <any>error
+    );
+    console.log(this.array);
     // built contact form
     this.contactFrm = this.fb.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       surname: ['', [Validators.required]],
       company: [''],
-      dni: ['' , [Validators.required, DniValidator.isDuplicate]],
+      // dni: ['' , [Validators.required, DniValidator.isDuplicate]],
+      dni: ['' , [Validators.required, this.isDuplicate.bind(this)]],
+
       fecha: ['']
     });
 
@@ -181,12 +185,12 @@ export class ContactformComponent implements OnInit {
     return contact;
   }
   isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
-
-    // let duplicate = false;
-    // this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe(contacto => {
-    // duplicate = contacto;
-    // });
-
+    let duplicate = false;
+    this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe(contacto => {
+    duplicate = contacto;
+    console.log(duplicate);
+    });
+    console.log(duplicate);
     // if (this.array !== undefined) {
     // this.array.forEach (function(contact) {
     //   if (contact.dni === control.value ) {
@@ -194,12 +198,9 @@ export class ContactformComponent implements OnInit {
     //   }
     // });
     // }
-    let duplicate = false;
-
-
-    if (control.value === 'G') {
-      duplicate = true;
-    }
+    // if (control.value === 'G') {
+    //   duplicate = true;
+    // }
     if (duplicate) {
         return { 'isDuplicate': true };
     }
@@ -208,7 +209,6 @@ export class ContactformComponent implements OnInit {
 
 
 }
-
  // CUSTON VALIDATION
   // const dni = control.value;
   // let duplicate = false;

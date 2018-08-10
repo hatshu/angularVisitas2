@@ -28,6 +28,15 @@ findDni(url: string, Id: string): Observable <boolean> {
   return this.http.get <boolean> (newurl).pipe(catchError(this.handleError));
 }
 
+getAllContactPromise(url: string): Promise<IContact[]> {
+    return this.http.get<IContact[]>(url)
+    .toPromise()
+    .then(res => res)
+    .catch(err => {
+        return Promise.reject(this.handleError);
+    });
+}
+
 validateUsername(Id: string): Promise<any> {
   // return this.http.get('api/contact/auth/validate-username/' + username).pipe(map(res => res.json()));
   const url = 'api/contact/validateUsername/';

@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError} from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 export class DniValidator  {
@@ -24,4 +24,5 @@ export class DniValidator  {
       return (null);
     }
   }
+
 }

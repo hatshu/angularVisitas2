@@ -27,6 +27,7 @@ namespace contact_app.Controllers
             return _context.Contact.ToList();
         }
 
+
         [HttpGet("{id}")]
         [Route("getIdByDNI")]
         public long getIdByDNI(string id)
