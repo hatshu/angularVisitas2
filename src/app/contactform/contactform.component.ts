@@ -34,6 +34,7 @@ export class ContactformComponent implements OnInit {
   array: any;
   errorMessage: any;
   duplicate: boolean;
+  res: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -184,7 +185,23 @@ export class ContactformComponent implements OnInit {
   }
   isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
     // let duplicate = false;
-    const promise =  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).toPromise();
+    // const promise =  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).toPromise().then(res => {
+    // console.log(res);
+    // this.res = res;
+    // }
+    // );
+    this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe (this.res = res => {
+
+      // do stuff with our data here.
+      // ....
+      // asign data to our class property in the end
+      // so it will be available to our template
+      this.res = res;
+  }
+  );
+    // .toPromise();
+    // promise.then(console.log.bind(console));
+
     // console.log('fuera del servicio duplicate es ' + this.duplicate + '');
     // if (this.array !== undefined) {
     // this.array.forEach (function(contact) {
@@ -196,11 +213,14 @@ export class ContactformComponent implements OnInit {
     // if (control.value === 'G') {
     //   duplicate = true;
     // }
-    console.log('promise: ' + promise);
-    if (this.duplicate) {
+    // if (this.duplicate) {
+    if (this.res) {
+        console.log('res ' + this.res  );
         return { isDuplicate: true };
+    } else {
+      return null;
     }
-    return null;
+
 }
 
 
