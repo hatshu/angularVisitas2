@@ -184,11 +184,8 @@ export class ContactformComponent implements OnInit {
   }
   isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
     // let duplicate = false;
-    this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe(contacto => {
-      this.duplicate = contacto;
-      console.log('dentro del servicio duplicate es ' + this.duplicate + '' );
-    });
-    console.log('fuera del servicio duplicate es ' + this.duplicate + '');
+    const promise =  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).toPromise();
+    // console.log('fuera del servicio duplicate es ' + this.duplicate + '');
     // if (this.array !== undefined) {
     // this.array.forEach (function(contact) {
     //   if (contact.dni === control.value ) {
@@ -199,11 +196,13 @@ export class ContactformComponent implements OnInit {
     // if (control.value === 'G') {
     //   duplicate = true;
     // }
+    console.log('promise: ' + promise);
     if (this.duplicate) {
         return { isDuplicate: true };
     }
     return null;
 }
+
 
 
 }
