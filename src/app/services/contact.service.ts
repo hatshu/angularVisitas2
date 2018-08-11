@@ -23,9 +23,14 @@ getIdByDNI(url: string, Id: string): Observable <number> {
   return this.http.get <number> (newurl).pipe(catchError(this.handleError));
 }
 
-findDni(url: string, Id: string): Observable <boolean> {
-  const newurl = `${url}?Id=${Id}`;
-  return this.http.get <boolean> (newurl).pipe(catchError(this.handleError));
+// findDni(url: string, Id: string): Observable <boolean> {
+//   const newurl = `${url}?Id=${Id}`;
+//   return this.http.get <boolean> (newurl).pipe(catchError(this.handleError));
+// }
+
+findDni(url: string, Id: string) {
+    const newurl = `${url}?Id=${Id}`;
+    return this.http.get(newurl).pipe(map(res => res));
 }
 
 getAllContactPromise(url: string): Promise<IContact[]> {
