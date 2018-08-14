@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { FormBuilder, Validators, ValidatorFn } from '@angular/forms';
-
+import { map, catchError } from 'rxjs/operators';
 import { MatDialog,
          MatDialogRef,
         MAT_DIALOG_DATA,
         AUTOCOMPLETE_PANEL_HEIGHT
 } from '@angular/material';
-
+import { Observable, throwError} from 'rxjs';
 import { ContactlistComponent } from '../contactlist/contactlist.component';
 import { IContact } from '../model/contact';
 import { ContactService } from '../services/contact.service';
@@ -31,6 +31,7 @@ export class ContactformComponent implements OnInit {
   // listFilter: string;
   // selectedOption: string;
   contact: IContact;
+  contacts: IContact[];
   array: any;
   errorMessage: any;
   duplicate: boolean;
@@ -44,10 +45,11 @@ export class ContactformComponent implements OnInit {
     public dialogRef: MatDialogRef<ContactlistComponent>
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.duplicate = false;
     console.log('estoy en oninit');
-    console.log(this.duplicate);
+    this.loadContacts();
+    // console.log(this.duplicate);
     // built contact form
     this.contactFrm = this.fb.group({
       id: [''],
@@ -56,7 +58,6 @@ export class ContactformComponent implements OnInit {
       company: [''],
       // dni: ['' , [Validators.required, DniValidator.isDuplicate]],
       dni: ['' , [Validators.required, this.isDuplicate.bind(this)]],
-
       fecha: ['']
     });
 
@@ -185,6 +186,13 @@ export class ContactformComponent implements OnInit {
   mapDateData(contact: IContact): IContact {
     return contact;
   }
+
+  loadContacts() {
+    this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
+      .subscribe(contacts => {
+      this.contacts =  contacts;
+    });
+  }
 //   isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
 //     // let duplicate = false;
 //     // const promise =  this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).toPromise().then(res => {
@@ -224,27 +232,72 @@ export class ContactformComponent implements OnInit {
 //       return null;
 //     }
 
+//
+isDuplicate(control: AbstractControl): { [key: string]: boolean } {
+
+// isDuplicate(control: AbstractControl): { [key: string]: boolean } {
+// clearTimeout(this.debouncer);
+// let prueba = null;
+// const promesa = this.AnswerService(control.value);
+// promesa.then(function(result) {
+//   console.log(result); // true or false;
+//   prueba = result;
+// }, function(err) {
+//   console.log(err); // error
+// });
+
+// if (prueba) {
+//   return { 'isDuplicate': true };
+// } else {
+//   return null;
 // }
-isDuplicate(control: AbstractControl): any {
-clearTimeout(this.debouncer);
-
-    return new Promise(resolve => {
-
-      this.debouncer = setTimeout(() => {
-
-        this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control.value).subscribe((res) => {
-          if (res) {
-            resolve({'isDuplicate': true});
-          }
-        }, (err) => {
-          resolve(null);
-        });
-
-      }, 1000);
-
-    });
+let findIt = false;
+if (this.contacts !== undefined) {
+this.contacts.forEach(function (value) {
+  console.log(value);
+  if (value.dni === control.value) {
+    findIt = true;
   }
+});
 
+if (findIt) {
+  return { 'isDuplicate': true };
+} else {
+  return null;
+}
+
+}
+
+}
+
+// AnswerService(control: string): any {
+//   // let bol = null;
+//   // this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control).subscribe(res => {
+
+//   //     bol = res;
+//   //   });
+//   //   return bol;
+//     //  return new Promise(resolve => {
+//     clearTimeout(this.debouncer);
+//      return new Promise(resolve => {
+
+//       this.debouncer = setTimeout(() => {
+
+//         this._contactService.findDni(Global.BASE_USER_ENDPOINT + 'findDni', control).subscribe((res) => {
+//           if (res === true) {
+//             resolve(true);
+//             console.log(res);
+//           } else {
+//             resolve(false);
+//             console.log(res);
+//           }
+//         });
+
+//       }, 1000);
+//     });
+
+
+// }
 
 }
  // CUSTON VALIDATION
