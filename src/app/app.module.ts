@@ -1,3 +1,4 @@
+import { AdService } from './services/ad.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,6 +51,7 @@ import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-
     ContactService,
     VisitService,
     EnlaceService,
+    AdService
   ],
   bootstrap: [AppComponent]
 })

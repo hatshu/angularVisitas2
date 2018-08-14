@@ -11,6 +11,8 @@ import { Observable, throwError} from 'rxjs';
 import { ContactlistComponent } from '../contactlist/contactlist.component';
 import { IContact } from '../model/contact';
 import { ContactService } from '../services/contact.service';
+import { AdService } from '../services/ad.service';
+
 import { DBOperation } from '../shared/DBOperations';
 import { Global } from '../shared/Global';
 import { DniValidator } from './dni.validator';
@@ -37,11 +39,13 @@ export class ContactformComponent implements OnInit {
   duplicate: boolean;
   res: any;
   debouncer: any;
+  usuarios: string[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     public _contactService: ContactService,
+    public _adService: AdService,
     public dialogRef: MatDialogRef<ContactlistComponent>
   ) { }
 
@@ -49,6 +53,7 @@ export class ContactformComponent implements OnInit {
     this.duplicate = false;
     console.log('estoy en oninit');
     this.loadContacts();
+    this.loadADUsers();
     // console.log(this.duplicate);
     // built contact form
     this.contactFrm = this.fb.group({
@@ -298,29 +303,10 @@ if (findIt) {
 
 
 // }
+loadADUsers() {
+  this._adService.getAllUsers(Global.BASE_USER_ENDPOINTAD + 'getAllUsers').subscribe((res) => {
+  this.usuarios = res;
+  });
+}
 
 }
- // CUSTON VALIDATION
-  // const dni = control.value;
-  // let duplicate = false;
-  // this.array.forEach (function(contact) {
-  //   if (contact.dni === dni ) {
-  //     duplicate = true;
-  //   }
-  //   function isDuplicate(control: AbstractControl): { [key: string]: boolean } | null {
-
-  //     // let duplicate = false;
-  //     // this.array.forEach (function(contact) {
-  //     //   if (contact.dni === control.value ) {
-  //     //     duplicate = true;
-  //     //   }
-  //     // });
-  //     let duplicate = false;
-  //     if (control.value === 'A') {
-  //       duplicate = true;
-  //     }
-  //     if (control.value !== undefined && (isNaN(control.value) || duplicate)) {
-  //         return { 'isDuplicate': true };
-  //     }
-  //     return null;
-  // }
