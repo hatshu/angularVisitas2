@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Observable, throwError} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 import {
   MatDialog,
@@ -8,7 +10,7 @@ import {
   MAT_DIALOG_DATA,
   AUTOCOMPLETE_PANEL_HEIGHT
 } from '@angular/material';
-
+import { AdService } from '../services/ad.service';
 import { VisitlistComponent } from '../visitlist/visitlist.component';
 import { IVisit } from '../model/visit';
 import { VisitService } from '../services/visit.service';
@@ -24,22 +26,30 @@ export class VisitformComponent implements OnInit {
   msg: string;
   indLoading = false;
   visitFrm: FormGroup;
+  usuarios: string[];
   // listFilter: string;
   // selectedOption: string;
+  myControl = new FormControl();
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private _visitService: VisitService,
+    public _adService: AdService,
     public dialogRef: MatDialogRef<VisitlistComponent>
   ) {}
 
   ngOnInit() {
+    this.loadADUsers();
+
     this.visitFrm = this.fb.group({
       id: [''],
       motivo: ['', [Validators.required, Validators.maxLength(50)]],
       duracion: [''],
       responsableCatec: ['', [Validators.required]],
+      responsableCatec2: [''],
       fecha: [''],
     });
 
@@ -61,6 +71,12 @@ export class VisitformComponent implements OnInit {
     if (!this.visitFrm) {
       return;
     }
+    this.options = this.usuarios;
+     this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     const form = this.visitFrm;
     // tslint:disable-next-line:forin
     for (const field in this.formErrors) {
@@ -173,5 +189,15 @@ export class VisitformComponent implements OnInit {
   mapDateData(visit: IVisit): IVisit {
     // visit.fecha = new Date(visit.fecha).toISOString();
     return visit;
+  }
+  loadADUsers() {
+    this._adService.getAllUsers(Global.BASE_USER_ENDPOINTAD + 'getAllUsers').subscribe((res) => {
+    this.usuarios = res;
+    });
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }

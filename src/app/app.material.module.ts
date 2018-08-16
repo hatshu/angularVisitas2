@@ -58,6 +58,7 @@ import {MatMenuModule} from '@angular/material/menu';
         MatTabsModule,
         MatSlideToggleModule,
         MatMenuModule,
+        MatAutocompleteModule
     ],
     exports: [
         MatToolbarModule,
@@ -79,7 +80,8 @@ import {MatMenuModule} from '@angular/material/menu';
         MatSnackBarModule,
         MatCardModule,
         MatMenuModule,
-        MatSortModule
+        MatSortModule,
+        MatAutocompleteModule
     ],
 })
 export class AppMaterialModule { }
