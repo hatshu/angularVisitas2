@@ -199,9 +199,13 @@ export class VisitformComponent implements OnInit {
     const search = this.options;
     if (this.options !== undefined) {
       // TODO: se pasa contenido de la lista de string sin acentos.
-      // this.options.forEach((word) => { // foreach statement
-      // this.readUserChar(word);
-      // });
+      this.options.forEach((word) => { // foreach statement
+        word = word.replace(/á/gi, 'a');
+        word = word.replace(/é/gi, 'e');
+        word = word.replace(/í/gi, 'i');
+        word = word.replace(/ó/gi, 'o');
+        word = word.replace(/ú/gi, 'u');
+      });
       // for (let word in search) {
       //   word = word.replace(/á/gi, 'a');
       //   word = word.replace(/é/gi, 'e');
@@ -210,7 +214,8 @@ export class VisitformComponent implements OnInit {
       //   word = word.replace(/ú/gi, 'u');
       //   }
       // }
-      return search.filter (option => option.toLowerCase().includes(filterValue));
+      return this.options.filter (option => option.toLowerCase().includes(filterValue));
       // return this.options.filter(option => option.toLowerCase().includes(filterValue));
     }
   }
+}
