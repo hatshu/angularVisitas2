@@ -29,8 +29,8 @@ export class VisitformComponent implements OnInit {
   usuarios: string[];
   // listFilter: string;
   // selectedOption: string;
-  myControl = new FormControl();
   options: string[] = [];
+  newoptions: string[] = [];
   filteredOptions: Observable<string[]>;
 
   constructor(
@@ -196,8 +196,21 @@ export class VisitformComponent implements OnInit {
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    const search = this.options;
     if (this.options !== undefined) {
-      return this.options.filter(option => option.toLowerCase().includes(filterValue));
+      // TODO: se pasa contenido de la lista de string sin acentos.
+      // this.options.forEach((word) => { // foreach statement
+      // this.readUserChar(word);
+      // });
+      // for (let word in search) {
+      //   word = word.replace(/á/gi, 'a');
+      //   word = word.replace(/é/gi, 'e');
+      //   word = word.replace(/í/gi, 'i');
+      //   word = word.replace(/ó/gi, 'o');
+      //   word = word.replace(/ú/gi, 'u');
+      //   }
+      // }
+      return search.filter (option => option.toLowerCase().includes(filterValue));
+      // return this.options.filter(option => option.toLowerCase().includes(filterValue));
     }
   }
-}
