@@ -29,7 +29,7 @@ export class VisitformComponent implements OnInit {
   usuarios: string[];
   // listFilter: string;
   // selectedOption: string;
-  // myControl = new FormControl();
+  myControl = new FormControl();
   options: string[] = [];
   filteredOptions: Observable<string[]>;
 
@@ -48,7 +48,7 @@ export class VisitformComponent implements OnInit {
       id: [''],
       motivo: ['', [Validators.required, Validators.maxLength(50)]],
       duracion: [''],
-      responsableCatec: ['', [Validators.required]],
+      responsableCatec:  [''],
       fecha: [''],
     });
 
@@ -72,14 +72,12 @@ export class VisitformComponent implements OnInit {
     }
     const form = this.visitFrm;
     this.options = this.usuarios;
-
-      this.filteredOptions = this.visitFrm.valueChanges
+      this.filteredOptions = this.visitFrm.controls['responsableCatec'].valueChanges
       .pipe(
-        startWith(''),
+        startWith(this.visitFrm.controls['responsableCatec'].value),
         map(value => this._filter(value))
       );
-
-    // tslint:disable-next-line:forin
+    // tslint:disable-next-line:forinvaluevalue
     for (const field in this.formErrors) {
       // clear previous error message (if any)
       this.formErrors[field] = '';
