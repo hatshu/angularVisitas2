@@ -196,16 +196,20 @@ export class VisitformComponent implements OnInit {
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    const search = this.options;
     if (this.options !== undefined) {
       // TODO: se pasa contenido de la lista de string sin acentos.
-      this.options.forEach((word) => { // foreach statement
-        word = word.replace(/á/gi, 'a');
-        word = word.replace(/é/gi, 'e');
-        word = word.replace(/í/gi, 'i');
-        word = word.replace(/ó/gi, 'o');
-        word = word.replace(/ú/gi, 'u');
-      });
+     const search = this.options;
+     for (const person of search) {
+      const stringFolded = this.replaceAccents(person);
+      console.log(stringFolded);
+     }
+      // this.options.forEach((word) => { // foreach statement
+      //   word = word.replace(/á/gi, 'a');
+      //   word = word.replace(/é/gi, 'e');
+      //   word = word.replace(/í/gi, 'i');
+      //   word = word.replace(/ó/gi, 'o');
+      //   word = word.replace(/ú/gi, 'u');
+      // });
       // for (let word in search) {
       //   word = word.replace(/á/gi, 'a');
       //   word = word.replace(/é/gi, 'e');
@@ -214,8 +218,15 @@ export class VisitformComponent implements OnInit {
       //   word = word.replace(/ú/gi, 'u');
       //   }
       // }
-      return this.options.filter (option => option.toLowerCase().includes(filterValue));
+      return this.options.filter (option => this.replaceAccents(option).includes(this.replaceAccents(filterValue)));
       // return this.options.filter(option => option.toLowerCase().includes(filterValue));
     }
   }
+
+  private replaceAccents (textWithAccent: string): string {
+    const inLowerCase = textWithAccent.toLowerCase();
+    const stringFolded = inLowerCase.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return stringFolded;
+  }
 }
+
