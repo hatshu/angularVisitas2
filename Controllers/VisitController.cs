@@ -82,7 +82,6 @@ namespace contact_app.Controllers
                 motivo = item.motivo,
                 duracion = item.duracion,
                 responsableCatec = item.responsableCatec,
-                //TODO: sacar la fecha y hora de ese momento
                 fecha = DateTime.Now,
 
             });
