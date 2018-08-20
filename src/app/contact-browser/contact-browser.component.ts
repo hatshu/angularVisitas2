@@ -133,25 +133,25 @@ export class ContactBrowserComponent implements OnInit, AfterViewInit, OnChanges
           contactId: element.id,
           visitId: this.data.visitaActiva.id
           };
+          // TODO: comprobar que esta persona no está ya en la lista
           this._enlaceService.addEnlaceVisitContact(Global.BASE_USER_ENDPOINTEnlace + 'addEnlaceVisitContact', enlaceData).subscribe(
             data => {
                 // Success
                 if (data.message) {
-                  // TODO: success
                 dialogRef2.close('success');
-                this.showMessage('Data successfully added.');
+                // TODO: cambiar a ingles
+                this.showMessage('Se ha añadido a la visita.');
                 this.loadListContacts();
                 this.loadEnlaces();
                 this.findNames();
                 } else {
-                  // TODO: error
                   dialogRef2.close('error');
-
                 }
               },
               error => {
-                // TODO: error
                 dialogRef2.close('error');
+                // TODO: cambiar a ingles
+                this.showMessage('El usuario ya existe en la visita');
               }
             );
       }

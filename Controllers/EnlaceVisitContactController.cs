@@ -59,10 +59,12 @@ namespace contact_app.Controllers
             }
             return new ObjectResult(item);
         }
+
         [HttpPost]
         [Route("addEnlaceVisitContact")]
         public IActionResult Create([FromBody] EnlaceVisitContact item)
         {
+            var isAdded = false;
             // set bad request if Visit data is not provided in body
             if (item == null)
             {
@@ -75,9 +77,21 @@ namespace contact_app.Controllers
                 contactId = item.contactId,
 
             });
+            foreach (var enlace in _context.EnlaceVisitContact.ToList())
+            {
+                if (enlace.contactId == item.contactId) {
+                  isAdded = true;
+                  break;
+                }
+            }
+            if (!isAdded) {
             _context.SaveChanges();
+            return Ok( new { message= "Person is added successfully."});
+            }
+            else {
+               return BadRequest("error");
+            }
 
-            return Ok( new { message= "Contacto is added successfully to the visit."});
         }
 
         [HttpPut("{id}")]
