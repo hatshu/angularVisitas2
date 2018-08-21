@@ -79,7 +79,7 @@ namespace contact_app.Controllers
             });
             foreach (var enlace in _context.EnlaceVisitContact.ToList())
             {
-                if (enlace.contactId == item.contactId) {
+                if (enlace.contactId == item.contactId && item.visitId == enlace.visitId) {
                   isAdded = true;
                   break;
                 }
