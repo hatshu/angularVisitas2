@@ -20,7 +20,7 @@ namespace contact_app.Controllers
             _context = context;
         }
 
-        [HttpGet,Authorize]
+        [HttpGet]
         [Route("getAllContact")]
         public IEnumerable<Contact> GetAll()
         {

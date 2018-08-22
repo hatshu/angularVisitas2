@@ -1,10 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { LoginComponent } from './login/login.component';
 
 import { ContactformComponent } from './contactform/contactform.component';
 import { VisitformComponent } from './visitform/visitform.component';
-
 
 import { ContactService } from './services/contact.service';
 import { VisitService } from './services/visit.service';

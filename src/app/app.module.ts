@@ -1,3 +1,4 @@
+import { AuthenticationService } from './services/authentication.service';
 import { AdService } from './services/ad.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,10 @@ import { VisitformComponent } from './visitform/visitform.component';
 import { ContactBrowserComponent } from './contact-browser/contact-browser.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-person.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,8 @@ import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-
     VisitformComponent,
     ContactBrowserComponent,
     ConfirmationDialogComponent,
-    VisitlistforPersonComponent
+    VisitlistforPersonComponent,
+    LoginComponent
   ],
   entryComponents: [
   ConfirmationDialogComponent,
@@ -51,7 +57,10 @@ import { VisitlistforPersonComponent } from './visitlistfor-person/visitlistfor-
     ContactService,
     VisitService,
     EnlaceService,
-    AdService
+    AdService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
