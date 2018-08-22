@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using contact_app.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace contact_app.Controllers
 {
@@ -19,7 +20,7 @@ namespace contact_app.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet,Authorize]
         [Route("getAllContact")]
         public IEnumerable<Contact> GetAll()
         {
