@@ -9,22 +9,46 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const testUser = { id: 1, username: 'admin', password: 'admin', firstName: 'Test', lastName: 'User' };
-
+        const testUser = {
+          id: 1, username: 'admin',
+          password: 'admin',
+          firstName: 'Test',
+          lastName: 'User'
+        };
+        const normalUser = {
+          id: 2, username: 'user',
+          password: 'user',
+          firstName: 'Normal',
+          lastName: 'User'
+        };
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
 
             // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-                if (request.body.username === testUser.username && request.body.password === testUser.password) {
+                // tslint:disable-next-line:max-line-length
+                if ((request.body.username === testUser.username && request.body.password === testUser.password ) || (request.body.username === normalUser.username && request.body.password === normalUser.password )) {
                     // if login details are valid return 200 OK with a fake jwt token
-                    const body = {
+                    let body: any = '';
+                    if (request.body.username === testUser.username) {
+                       body = {
                         id: testUser.id,
                         username: testUser.username,
                         firstName: testUser.firstName,
                         lastName: testUser.lastName,
                         token: 'fake-jwt-token'
-                    };
+                       };
+                    } else {
+                      if (request.body.username === normalUser.username) {
+                        body = {
+                         id: normalUser.id,
+                         username: normalUser.username,
+                         firstName: normalUser.firstName,
+                         lastName: normalUser.lastName,
+                         token: 'fake-jwt-token'
+                        };
+                      }
+                    }
                     return of(new HttpResponse({ status: 200, body }));
                 } else {
                     // else return 400 bad request
