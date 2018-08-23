@@ -34,9 +34,10 @@
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="menu"><mat-icon class="example-icon">menu </mat-icon>Menu</button>
 <span class="example-fill-remaining-space"></span>
-    <a  class="a2" routerLink="home"  href="home" >Libro de Visitas de CATEC</a>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<a  class="a2" routerLink="home"  href="home" >  Libro de Visitas de CATEC</a>
+<p *ngIf="loggedInUser"> &nbsp;Usuario: {{ loggedInUser.username }}</p>
+</mat-toolbar-row>
+</mat-toolbar>
   <!-- <router-outlet></router-outlet> -->
   <router-outlet></router-outlet>
 </div>

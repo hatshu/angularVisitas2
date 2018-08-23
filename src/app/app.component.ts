@@ -1,11 +1,10 @@
+import { AuthenticationService } from './services/authentication.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginComponent } from './login/login.component';
-
 import { ContactformComponent } from './contactform/contactform.component';
 import { VisitformComponent } from './visitform/visitform.component';
-
 import { ContactService } from './services/contact.service';
 import { VisitService } from './services/visit.service';
 
@@ -14,33 +13,45 @@ import { IVisit } from './model/visit';
 
 import { DBOperation } from './shared/DBOperations';
 import { Global } from './shared/Global';
+import { Observable } from 'rxjs';
+import { User } from './model/user';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-// export class AppComponent implements OnInit{
-export class AppComponent {
-  title = 'Contact Application';
+export class AppComponent implements OnInit {
+  title = 'Visits Application';
 //   contacts: IContact[];
 //   contact: IContact;
 //   loadingState: boolean;
 //   dbops: DBOperation;
 //   modalTitle: string;
 //   modalBtnTitle: string;
+loggedInUser: User;
 
-//   // set columns that will need to show in listing table
-//   displayedColumns = ['name', 'email', 'gender', 'birth', 'techno', 'message', 'action'];
-//   // setting up datasource for material table
-//   dataSource = new MatTableDataSource<IContact>();
 
-//   constructor(public snackBar: MatSnackBar, private _contactService: ContactService, private dialog: MatDialog) { }
+  constructor(public snackBar: MatSnackBar,
+    private _contactService: ContactService,
+    private dialog: MatDialog,
+    private _autenticationService: AuthenticationService,
+  ) { }
 
-//   ngOnInit() {
-//     this.loadingState = true;
-//     this.loadContacts();
-//   }
+  ngOnInit() {
+  this.loadUsers();
+  this._autenticationService.currentUser$.subscribe((user: User) => {
+  this.loggedInUser = user;
+  });
+  }
+
+  loadUsers() {
+    // if (localStorage.getItem('currentUser')) {
+    //   this.userActivo =  JSON.parse(localStorage.getItem('currentUser')).username;
+    //   console.log(localStorage.getItem('currentUser'));
+
+  }
+
 //   openDialog(): void {
 //     const dialogRef = this.dialog.open(ContactformComponent, {
 //       width: '500px',
@@ -71,38 +82,6 @@ export class AppComponent {
 //     });
 //   }
 
-//   // loadContacts(): void {
-//   //   this._contactService.getAllContact(Global.BASE_USER_ENDPOINT + 'getAllContact')
-//   //     .subscribe(contacts => {
-//   //       this.loadingState = false;
-//   //       this.dataSource.data = contacts;
-//   //     });
-//   // }
-
-//   // getGender(gender: number): string {
-//   //   return Global.genders.filter(ele => ele.id === gender).map(ele => ele.name)[0];
-//   // }
-
-//   addContact() {
-//     this.dbops = DBOperation.create;
-//     this.modalTitle = 'Add New Contact';
-//     this.modalBtnTitle = 'Add';
-//     this.openDialog();
-//   }
-//   // editContact(id: number) {
-//   //   this.dbops = DBOperation.update;
-//   //   this.modalTitle = 'Edit Contact';
-//   //   this.modalBtnTitle = 'Update';
-//   //   this.contact = this.dataSource.data.filter(x => x.id === id)[0];
-//   //   this.openDialog();
-//   // }
-//   // deleteContact(id: number) {
-//   //   this.dbops = DBOperation.delete;
-//   //   this.modalTitle = 'Confirm to Delete ?';
-//   //   this.modalBtnTitle = 'Delete';
-//   //   this.contact = this.dataSource.data.filter(x => x.id === id)[0];
-//   //   this.openDialog();
-//   // }
 //   showMessage(msg: string) {
 //     this.snackBar.open(msg, '', {
 //       duration: 3000
