@@ -25,7 +25,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-
+import { fakeBackendProvider } from './helpers/fake-backend';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,9 +59,11 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     VisitService,
     EnlaceService,
     AdService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthenticationService
+    AuthenticationService,
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

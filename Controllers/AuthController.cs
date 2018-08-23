@@ -9,10 +9,10 @@ using contact_app.Models;
 
 namespace contact_app.Controllers {
 
-  [Route ("api/auth")]
+  [Route ("api/authASSASASASAS")]
   public class AuthController : Controller {
     // GET api/values
-    [HttpPost, Route ("login")]
+    [HttpPost, Route ("loginASASASAS")]
     public IActionResult Login ([FromBody] Login user) {
       if (user == null) {
         return BadRequest ("Invalid client request");
